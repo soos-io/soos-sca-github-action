@@ -1,0 +1,93 @@
+# action.yml
+name: "SOOS CLI"
+author: "SOOS"
+description: "Execute SOOS analysis using your remote SOOS configuration"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+
+inputs:
+
+  base_uri:
+    description: The API BASE URI provided to you when subscribing to SOOS services.
+    required: false
+    default: 'https://api.soos.io/api/'
+    
+  project_name:
+    description: A custom project name that will present itself as a collection of test results within your soos.io dashboard.
+    required: true    
+    
+  # (-dte)
+  directories_to_exclude:
+    description: 'Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start'
+    required: false
+    default: ''
+
+  # (-fte)
+  files_to_exclude:
+    description: 'Files to Exclude: Listing of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/requirements.txt ... Example - Incorrect: ./bin/start/requirements.txt ... Example - Incorrect: /bin/start/requirements.txt'
+    required: false
+    default: ''
+
+  # (-armw)
+  analysis_result_max_wait:
+    description: 'Maximum seconds to wait for Analysis Result.'
+    required: false
+    default: '300'
+
+  # (-arpi)
+  analysis_result_polling_interval:
+    description: 'Polling interval (in seconds) for analysis result completion (success/failure). Min value 10 seconds.'
+    required: false
+    default: '10'
+
+  debug_print_variables:
+    description: 'Enables printing of input/environment variables within the docker container.'
+    required: false
+    default: false
+
+  # (-bruri)
+  branch_uri:
+    description: 'URI to branch from SCM system.'
+    required: false
+    default: ''
+
+  # (-bldver)
+  build_version:
+    description: 'Version of application build artifacts.'
+    required: false
+    default: ''
+
+  # (-blduri)
+  build_uri:
+    description: 'URI to CI build info.'
+    required: false
+    default: ''
+
+  # (-oe)
+  operating_environment:
+    description: 'System info regarding operating system, etc.'
+    required: false
+    default: ''
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    SOOS_INTEGRATION_NAME: GITHUB_ACTIONS
+    SOOS_INTEGRATION_VERSION: 'v0.1.0'
+
+  args:
+  - ${{ inputs.base_uri }}
+  - ${{ inputs.project_name}}
+  - 'run_and_wait'   # mode
+  - 'fail_the_build' # on_failure
+  - ${{ inputs.directories_to_exclude }}
+  - ${{ inputs.files_to_exclude }}
+  - ${{ inputs.analysis_result_max_wait }}
+  - ${{ inputs.analysis_result_polling_interval }}
+  - ${{ inputs.debug_print_variables }}
+  - ${{ inputs.branch_uri }}
+  - ${{ inputs.build_version }}
+  - ${{ inputs.build_uri }}
+  - ${{ inputs.operating_environment }}
