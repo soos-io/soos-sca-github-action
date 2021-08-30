@@ -73,7 +73,12 @@ For example, you can choose to exclude specific directories from scanning:
 *YOUR_REPO/.github/workflow/main.yml*
 ```yaml
 name: Example workflow using SOOS
-on: push
+on: 
+  push:
+    branches: 
+      - main 
+    paths:
+      - package.json
 jobs:
   synchronous-analysis-with-blocking-result:
     name: SOOS Scan
