@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run SOOS - Scan for vulnerabilities
-      uses: SOOS/actions/github-action@main
+      uses: soos-io/soos-ci-analysis-github-actions@main
       with:
         project_name: "My Project Name"
       env:
