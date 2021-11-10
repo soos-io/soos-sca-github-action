@@ -1,14 +1,32 @@
 # SOOS Action
 
 A [GitHub Action](https://github.com/features/actions) for using [SOOS](https://soos.io) to check for
-vulnerabilities in your projects.
+vulnerabilities in your GitHub projects.
 
-**NOTE** This read-me describes GitHub actions for private repos that intend to house the files themselves. This read-me does not describe how to use the GitHub action after it's published to the GitHub marketplace.
+## Supported Languages and Package Managers
+
+* [Node (NPM)](https://www.npmjs.com/)
+* [Python (pypi)](https://pypi.org/)
+* [.NET (NuGet)](https://www.nuget.org/)
+* [Ruby (Ruby Gems)](https://rubygems.org/)
+* [Java (Maven)](https://maven.apache.org/)
+
+## How to use it:
 
 You can use the Action as follows:
 
-**FILE:** YOUR_REPO/.github/workflow/main.yml
-
+- Update the `<your_repo>/.github/workflow/main.yml`file to include a step like this:
+```yaml
+ - name: Run SOOS - Scan for vulnerabilities
+   uses: soos-io/soos-ci-analysis-github-actions@main
+   with:
+      project_name: "My Project Name"
+   env:
+      # Visit https://soos.io to get the required tokens to leverage SOOS scanning/analysis services
+      SOOS_CLIENT_ID: ${{ secrets.SOOS_CLIENT_ID }}
+      SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
+```
+Example:
 ```yaml
 name: Example workflow using SOOS
 # Events required to engage workflow (add/edit this list as needed)
@@ -32,17 +50,7 @@ jobs:
         
 ```
 
-Other Files:
-
-**LOCATION:** YOUR_REPO/github-action/
-
-| Filename | Purpose |
-| --- | --- |
-| Dockerfile | The Dockerfile used to execute the action logic |
-| entrypoint.sh | The business logic that is called by Dockerfile and preps the build with files and dependencies needed to execute the script |
-| action.yml | Called by main.yml and initiates the setup of variables, passing them through a Docker instance that it creates. |
-
-The SOOS Action has properties which are passed to the action using `with`.
+The `soos-io/soos-ci-analysis-github-actions` Action has properties which are passed to the action using `with`.
 
 | Property | Default | Description |
 | --- | --- | --- |
@@ -70,7 +78,7 @@ The SOOS Action has environment variables which are passed to the action using `
 
 For example, you can choose to exclude specific directories from scanning:
 
-*YOUR_REPO/.github/workflow/main.yml*
+`<your_repo>/.github/workflow/main.yml
 ```yaml
 name: Example workflow using SOOS
 on: 
