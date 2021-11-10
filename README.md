@@ -15,7 +15,7 @@ vulnerabilities in your GitHub projects.
 
 You can use the Action as follows:
 
-- Update the `<your_repo>/.github/workflow/main.yml`file to include a step like this:
+- Update the `.github/workflow/main.yml`file to include a step like this:
 ```yaml
  - name: Run SOOS - Scan for vulnerabilities
    uses: soos-io/soos-ci-analysis-github-actions@main
@@ -78,7 +78,7 @@ The SOOS Action has environment variables which are passed to the action using `
 
 For example, you can choose to exclude specific directories from scanning:
 
-`<your_repo>/.github/workflow/main.yml
+`.github/workflow/main.yml`:
 ```yaml
 name: Example workflow using SOOS
 on: 
