@@ -1,5 +1,5 @@
 # action.yml
-name: "SOOS CLI"
+name: "SOOS SCA Github Action"
 author: "SOOS"
 description: "Execute SOOS analysis using your remote SOOS configuration"
 branding:
