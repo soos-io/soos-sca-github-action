@@ -18,7 +18,7 @@ You can use the Action as follows:
 - Update the `.github/workflow/main.yml`file to include a step like this:
 ```yaml
  - name: Run SOOS - Scan for vulnerabilities
-   uses: soos-io/soos-ci-analysis-github-actions@main
+   uses: soos-io/soos-sca-github-action@v1
    with:
       project_name: "My Project Name"
    env:
@@ -40,7 +40,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run SOOS - Scan for vulnerabilities
-      uses: soos-io/soos-ci-analysis-github-actions@main
+      uses: soos-io/soos-sca-github-action@v1
       with:
         project_name: "My Project Name"
       env:
@@ -96,7 +96,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run SOOS - Scan for vulnerabilities
-      uses: soos-io/soos-ci-analysis-github-actions@main
+      uses: soos-io/soos-sca-github-action@v1
       with:
         project_name: "My Project Name"
         directories_to_exclude: "custom/bin/, custom/etc/bin/"
