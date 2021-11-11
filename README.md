@@ -1,4 +1,4 @@
-# SOOS CI Analysis GitHub Action
+# SOOS SCA GitHub Action
 
 A [GitHub Action](https://github.com/features/actions) for using [SOOS](https://soos.io) to check for
 vulnerabilities in your GitHub projects.
