@@ -1,7 +1,13 @@
-# SOOS SCA GitHub Action
+# SOOS Core SCA
 
-A [GitHub Action](https://github.com/features/actions) for using [SOOS](https://soos.io) to check for
-vulnerabilities in your GitHub projects.
+Scan your software for **vulnerabilities** and **license issues**.  Generate SBOMs. 
+
+Use **SOOS Core SCA** to:
+
+1. Find, fix and monitor known **vulnerabilities**
+2. Review open source **license usage** within your project
+3. Track tickets in Jira or GitHub Issues
+4. Generate an SBOM 
 
 ## Supported Languages and Package Managers
 
@@ -17,8 +23,8 @@ You can use the Action as follows:
 
 - Update the `.github/workflow/main.yml`file to include a step like this:
 ```yaml
- - name: Run SOOS - Scan for vulnerabilities
-   uses: soos-io/soos-sca-github-action@v1
+ - name: Run SOOS SCA Scan for vulnerabilities
+   uses: soos-io/soos-sca-github-action@v1.0.0
    with:
       project_name: "My Project Name"
    env:
@@ -33,14 +39,14 @@ name: Example workflow using SOOS
 on: push
 jobs:
   synchronous-analysis-with-blocking-result:
-    name: SOOS Scan
+    name: SOOS SCA Scan
     runs-on: ubuntu-latest
     steps:
 
     - uses: actions/checkout@master
 
     - name: Run SOOS - Scan for vulnerabilities
-      uses: soos-io/soos-sca-github-action@v1
+      uses: soos-io/soos-sca-github-action@v1.0.0
       with:
         project_name: "My Project Name"
       env:
@@ -89,14 +95,14 @@ on:
       - package.json
 jobs:
   synchronous-analysis-with-blocking-result:
-    name: SOOS Scan
+    name: SOOS SCA Scan
     runs-on: ubuntu-latest
     steps:
 
     - uses: actions/checkout@master
 
     - name: Run SOOS - Scan for vulnerabilities
-      uses: soos-io/soos-sca-github-action@v1
+      uses: soos-io/soos-sca-github-action@v1.0.0
       with:
         project_name: "My Project Name"
         directories_to_exclude: "custom/bin/, custom/etc/bin/"

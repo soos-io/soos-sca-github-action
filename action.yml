@@ -1,7 +1,7 @@
 # action.yml
-name: "SOOS SCA Github Action"
+name: "SOOS SCA"
 author: "SOOS"
-description: "Execute SOOS analysis using your remote SOOS configuration"
+description: "Execute SOOS SCA analysis using your remote SOOS configuration"
 branding:
   icon: "alert-triangle"
   color: "yellow"
@@ -15,7 +15,19 @@ inputs:
     
   project_name:
     description: A custom project name that will present itself as a collection of test results within your soos.io dashboard.
-    required: true    
+    required: true
+
+  # (-m)
+  mode:
+    description: 'The scan mode for the analysis: run_and_wait, async_init, and async_result'
+    required: false
+    default: 'run_and_wait'
+
+  # (-of)
+  on_failure:
+    description: 'Set the On Failure Scan Strategy: fail_the_build, and continue_on_error'
+    required: false
+    default: 'fail_the_build'
     
   # (-dte)
   directories_to_exclude:
@@ -75,13 +87,13 @@ runs:
   image: "Dockerfile"
   env:
     SOOS_INTEGRATION_NAME: GITHUB_ACTIONS
-    SOOS_INTEGRATION_VERSION: 'v0.1.0'
+    SOOS_INTEGRATION_VERSION: 'v0.2.0'
 
   args:
   - ${{ inputs.base_uri }}
-  - ${{ inputs.project_name}}
-  - 'run_and_wait'   # mode
-  - 'fail_the_build' # on_failure
+  - ${{ inputs.project_name }}
+  - ${{ inputs.mode }}
+  - ${{ inputs.on_failure }}
   - ${{ inputs.directories_to_exclude }}
   - ${{ inputs.files_to_exclude }}
   - ${{ inputs.analysis_result_max_wait }}

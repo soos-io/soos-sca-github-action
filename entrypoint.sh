@@ -17,7 +17,7 @@ SOOS_OPERATING_ENVIRONMENT=${13}
 
 SOOS_COMMIT_HASH=${GITHUB_SHA}
 SOOS_BRANCH_NAME=${GITHUB_REF}
-SOOS_INTEGRATION_NAME="GitHubAction"
+SOOS_INTEGRATION_NAME="Github Action"
 
 SOOS_WORKING_DIRECTORY=${GITHUB_WORKSPACE}
 SOOS_ROOT_CODE_PATH=${GITHUB_WORKSPACE}
@@ -78,11 +78,11 @@ sha256sum -c soos.sha256
 sha256sum -c requirements.sha256
 
 # Install SOOS Requirements
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 cd ${GITHUB_WORKSPACE}
 
 # Execute SOOS CLI
 echo "About to execute soos.py with commit hash ${SOOS_COMMIT_HASH}"
 
-python soos/workspace/soos.py -m="${SOOS_MODE}" -of="${SOOS_ON_FAILURE}" -dte="${SOOS_DIRECTORIES_TO_EXCLUDE}" -fte="${SOOS_FILES_TO_EXCLUDE}" -wd="${SOOS_WORKING_DIRECTORY}" -armw="${SOOS_ANALYSIS_RESULT_MAX_WAIT}" -arpi="${SOOS_ANALYSIS_RESULT_POLLING_INTERVAL}" -buri="${SOOS_BASE_URI}" -scp="${SOOS_ROOT_CODE_PATH}" -pn="${SOOS_PROJECT_NAME}" -ch="${SOOS_COMMIT_HASH}" -bn="${SOOS_BRANCH_NAME}" -bruri="${SOOS_BRANCH_URI}" -bldver="${SOOS_BUILD_VERSION}" -blduri="${SOOS_BUILD_URI}" -oe="${SOOS_OPERATING_ENVIRONMENT}" -akey="${SOOS_API_KEY}" -cid="${SOOS_CLIENT_ID}" -intn="${SOOS_INTEGRATION_NAME}"
+python3 soos/workspace/soos.py -m="${SOOS_MODE}" -of="${SOOS_ON_FAILURE}" -dte="${SOOS_DIRECTORIES_TO_EXCLUDE}" -fte="${SOOS_FILES_TO_EXCLUDE}" -wd="${SOOS_WORKING_DIRECTORY}" -armw="${SOOS_ANALYSIS_RESULT_MAX_WAIT}" -arpi="${SOOS_ANALYSIS_RESULT_POLLING_INTERVAL}" -buri="${SOOS_BASE_URI}" -scp="${SOOS_ROOT_CODE_PATH}" -pn="${SOOS_PROJECT_NAME}" -ch="${SOOS_COMMIT_HASH}" -bn="${SOOS_BRANCH_NAME}" -bruri="${SOOS_BRANCH_URI}" -bldver="${SOOS_BUILD_VERSION}" -blduri="${SOOS_BUILD_URI}" -oe="${SOOS_OPERATING_ENVIRONMENT}" -akey="${SOOS_API_KEY}" -cid="${SOOS_CLIENT_ID}" -intn="${SOOS_INTEGRATION_NAME}"
