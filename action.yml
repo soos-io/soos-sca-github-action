@@ -1,5 +1,5 @@
 # action.yml
-name: "SOOS SCA"
+name: "SOOS Core SCA"
 author: "SOOS"
 description: "Execute SOOS SCA analysis using your remote SOOS configuration"
 branding:
