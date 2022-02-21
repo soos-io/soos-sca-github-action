@@ -11,11 +11,18 @@ Use **SOOS Core SCA** to:
 
 ## Supported Languages and Package Managers
 
-* [Node (NPM)](https://www.npmjs.com/)
-* [Python (pypi)](https://pypi.org/)
-* [.NET (NuGet)](https://www.nuget.org/)
-* [Ruby (Ruby Gems)](https://rubygems.org/)
-* [Java (Maven)](https://maven.apache.org/)
+* [Cargo - Rust](https://doc.rust-lang.org/cargo/)
+* [Composer - PHP](https://maven.apache.org/)
+* [Dart PM (Pub Package Manager) - Dart](https://pub.dev/)
+* [Gradle - Java & Kotlin](https://gradle.org/)
+* [Homebrew - (various languages)](https://brew.sh/)
+* [Maven - Java](https://maven.apache.org/)
+* [Mix - Elixir](https://hexdocs.pm/mix/Mix.html)
+* [NuGet - .NET](https://www.nuget.org/)
+* [NPM (Node Package Manager) - Node](https://www.npmjs.com/)
+* [PyPI - Python](https://pypi.org/)
+* [Rebar3 - Erlang](https://rebar3.readme.io/docs/getting-started)
+* [Ruby Gems - Ruby](https://rubygems.org/)
 
 ## How to use it:
 
