@@ -1,13 +1,13 @@
 # SOOS Core SCA
 
-Scan your software for **vulnerabilities** and **license issues**.  Generate SBOMs. 
+Scan your software for **vulnerabilities** and **license issues**.  Generate **SBOMs**. 
 
 Use **SOOS Core SCA** to:
 
 1. Find, fix and monitor known **vulnerabilities**
 2. Review open source **license usage** within your project
-3. Track tickets in Jira or GitHub Issues
-4. Generate an SBOM 
+3. Track tickets in **Jira** or **GitHub** Issues
+4. Generate an **SBOM** 
 
 ## Supported Languages and Package Managers
 
