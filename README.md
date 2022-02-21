@@ -56,7 +56,7 @@ jobs:
         
 ```
 
-The `soos-io/soos-ci-analysis-github-actions` Action has properties which are passed to the action using `with`.
+The `soos-io/soos-sca-github-actions` Action has properties which are passed to the action using `with`.
 
 | Property | Default | Description |
 | --- | --- | --- |
