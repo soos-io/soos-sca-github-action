@@ -12,7 +12,7 @@ inputs:
     description: The API BASE URI provided to you when subscribing to SOOS services.
     required: false
     default: 'https://api.soos.io/api/'
-    
+
   project_name:
     description: A custom project name that will present itself as a collection of test results within your soos.io dashboard.
     required: true
@@ -28,7 +28,7 @@ inputs:
     description: 'Set the On Failure Scan Strategy: fail_the_build, and continue_on_error'
     required: false
     default: 'fail_the_build'
-    
+
   # (-dte)
   directories_to_exclude:
     description: 'Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start'
@@ -56,7 +56,7 @@ inputs:
   debug_print_variables:
     description: 'Enables printing of input/environment variables within the docker container.'
     required: false
-    default: false
+    default: 'false'
 
   # (-bruri)
   branch_uri:
@@ -82,6 +82,18 @@ inputs:
     required: false
     default: ''
 
+  # (-sarif)
+  sarif:
+    description: 'System info regarding operating system, etc.'
+    required: false
+    default: 'false'
+
+  # (-gpat)
+  gpat:
+    description: 'System info regarding operating system, etc.'
+    required: false
+    default: ''
+
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -90,16 +102,18 @@ runs:
     SOOS_INTEGRATION_VERSION: 'v0.2.0'
 
   args:
-  - ${{ inputs.base_uri }}
-  - ${{ inputs.project_name }}
-  - ${{ inputs.mode }}
-  - ${{ inputs.on_failure }}
-  - ${{ inputs.directories_to_exclude }}
-  - ${{ inputs.files_to_exclude }}
-  - ${{ inputs.analysis_result_max_wait }}
-  - ${{ inputs.analysis_result_polling_interval }}
-  - ${{ inputs.debug_print_variables }}
-  - ${{ inputs.branch_uri }}
-  - ${{ inputs.build_version }}
-  - ${{ inputs.build_uri }}
-  - ${{ inputs.operating_environment }}
+    - ${{ inputs.base_uri }}
+    - ${{ inputs.project_name }}
+    - ${{ inputs.mode }}
+    - ${{ inputs.on_failure }}
+    - ${{ inputs.directories_to_exclude }}
+    - ${{ inputs.files_to_exclude }}
+    - ${{ inputs.analysis_result_max_wait }}
+    - ${{ inputs.analysis_result_polling_interval }}
+    - ${{ inputs.debug_print_variables }}
+    - ${{ inputs.branch_uri }}
+    - ${{ inputs.build_version }}
+    - ${{ inputs.build_uri }}
+    - ${{ inputs.operating_environment }}
+    - ${{ inputs.sarif }}
+    - ${{ inputs.gpat }}
