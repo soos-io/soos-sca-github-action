@@ -53,7 +53,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run SOOS - Scan for vulnerabilities
-      uses: soos-io/soos-sca-github-action@v1.0.0
+      uses: soos-io/soos-sca-github-action@<latest_version>
       with:
         project_name: "My Project Name"
       env:
@@ -65,28 +65,30 @@ jobs:
 
 The `soos-io/soos-sca-github-actions` Action has properties which are passed to the action using `with`.
 
-| Property | Default | Description |
-| --- | --- | --- |
-| base_uri | "https://api.soos.io/api/"  | The API BASE URI provided to you when subscribing to SOOS services. |
-| project_name | [none]  | REQUIRED. A custom project name that will present itself as a collection of test results within your soos.io dashboard. |
-| directories_to_exclude | ""  | List (comma separated) of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/ ... Example - Incorrect: ./bin/start/ ... Example - Incorrect: /bin/start/'|
-| files_to_exclude | "" | List (comma separated) of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/manifest.txt ... Example - Incorrect: ./bin/start/manifest.txt ... Example - Incorrect: /bin/start/manifest.txt' |
-| analysis_result_max_wait | 300 | Maximum seconds to wait for Analysis Result before exiting with error. |
-| analysis_result_polling_interval | 10 | Polling interval (in seconds) for analysis result completion (success/failure.). Min 10. |
-| debug_print_variables | false | Enables printing of input/environment variables within the docker container. |
-| commit_hash | [none] | The commit hash value from the SCM System |
-| branch_name | [none] | The name of the branch from the SCM System |
-| branch_uri | [none] | The URI to the branch from the SCM System |
-| build_version | [none] | Version of application build artifacts |
-| build_uri | [none] | URI to CI build info |
-| operating_environment | [none] | System info regarding operating system, etc. |
+| Property                         | Default                    | Description                                                                                                                                                                                                                                   |
+|----------------------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| base_uri                         | "https://api.soos.io/api/" | The API BASE URI provided to you when subscribing to SOOS services.                                                                                                                                                                           |
+| project_name                     | [none]                     | REQUIRED. A custom project name that will present itself as a collection of test results within your soos.io dashboard. For SARIF Report, it should be `{repository_owner}/{repository_name}`                                                 |
+| directories_to_exclude           | ""                         | List (comma separated) of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/ ... Example - Incorrect: ./bin/start/ ... Example - Incorrect: /bin/start/'                               |
+| files_to_exclude                 | ""                         | List (comma separated) of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/manifest.txt ... Example - Incorrect: ./bin/start/manifest.txt ... Example - Incorrect: /bin/start/manifest.txt' |
+| analysis_result_max_wait         | 300                        | Maximum seconds to wait for Analysis Result before exiting with error.                                                                                                                                                                        |
+| analysis_result_polling_interval | 10                         | Polling interval (in seconds) for analysis result completion (success/failure.). Min 10.                                                                                                                                                      |
+| debug_print_variables            | false                      | Enables printing of input/environment variables within the docker container.                                                                                                                                                                  |
+| commit_hash                      | [none]                     | The commit hash value from the SCM System. Required for SARIF Report                                                                                                                                                                          |
+| branch_name                      | [none]                     | The name of the branch from the SCM System. Required for SARIF Report                                                                                                                                                                         |
+| branch_uri                       | [none]                     | The URI to the branch from the SCM System                                                                                                                                                                                                     |
+| build_version                    | [none]                     | Version of application build artifacts                                                                                                                                                                                                        |
+| build_uri                        | [none]                     | URI to CI build info                                                                                                                                                                                                                          |
+| operating_environment            | [none]                     | System info regarding operating system, etc.                                                                                                                                                                                                  |
+| sarif                            | false                      | Enable Uploading the SARIF Report to GitHub.                                                                                                                                                                                                  |
+| gpat                             | [none]                     | GitHub Personal Access Token. Required to upload SARIF Report                                                                                                                                                                                 |
 
 The SOOS Action has environment variables which are passed to the action using `env`. These environment variables are stored as repo `secrets` and are required for the action to operate.
 
-| Property | Description |
-| --- | --- |
+| Property       | Description                                        |
+|----------------|----------------------------------------------------|
 | SOOS_CLIENT_ID | Provided to you when subscribing to SOOS services. |
-| SOOS_API_KEY | Provided to you when subscribing to SOOS services. |
+| SOOS_API_KEY   | Provided to you when subscribing to SOOS services. |
 
 
 For example, you can choose to exclude specific directories from scanning:
@@ -109,7 +111,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run SOOS - Scan for vulnerabilities
-      uses: soos-io/soos-sca-github-action@v1.0.0
+      uses: soos-io/soos-sca-github-action@<latest_version>
       with:
         project_name: "My Project Name"
         directories_to_exclude: "custom/bin/, custom/etc/bin/"
@@ -119,4 +121,42 @@ jobs:
         SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
 ```
 
+### SARIF Report Example
 
+`.github/workflow/main.yml`:
+``` yaml
+# This is a basic workflow to help you get started with Actions
+name: SOOS SCA SARIF Example CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: SOOS SCA Analysis
+        uses: soos-io/soos-sca-github-action@<latest_version>
+        with:
+          project_name: "<repository_owner>/<repository_name>"
+          sarif: "true"
+          gpat: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
+        env:
+          # Visit https://soos.io to get the required tokens to leverage SOOS scanning/analysis services
+          SOOS_CLIENT_ID: ${{ secrets.SOOS_CLIENT_ID }}
+          SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
+```
