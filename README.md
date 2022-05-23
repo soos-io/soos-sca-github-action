@@ -31,11 +31,11 @@ You can use the Action as follows:
 - Update the `.github/workflow/main.yml`file to include a step like this:
 ```yaml
  - name: Run SOOS SCA Scan for vulnerabilities
-   uses: soos-io/soos-sca-github-action@v1.0.0
+   uses: soos-io/soos-sca-github-action@vX.Y.Z # Get Latest Version from https://github.com/marketplace/actions/soos-core-sca
    with:
-      project_name: "My Project Name"
-      client_id: ${{ secrets.SOOS_CLIENT_ID }}
-      api_key: ${{ secrets.SOOS_API_KEY }}
+    project_name: "My Project Name"
+    SOOS_CLIENT_ID: ${{ secrets.SOOS_CLIENT_ID }}
+    SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
 ```
 Example:
 ```yaml
