@@ -34,10 +34,8 @@ You can use the Action as follows:
    uses: soos-io/soos-sca-github-action@v1.0.0
    with:
       project_name: "My Project Name"
-   env:
-      # Visit https://soos.io to get the required tokens to leverage SOOS scanning/analysis services
-      SOOS_CLIENT_ID: ${{ secrets.SOOS_CLIENT_ID }}
-      SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
+      client_id: ${{ secrets.SOOS_CLIENT_ID }}
+      api_key: ${{ secrets.SOOS_API_KEY }}
 ```
 Example:
 ```yaml
@@ -56,18 +54,18 @@ jobs:
       uses: soos-io/soos-sca-github-action@<latest_version>
       with:
         project_name: "My Project Name"
-      env:
-        # Visit https://soos.io to get the required tokens to leverage SOOS scanning/analysis services
-        SOOS_CLIENT_ID: ${{ secrets.SOOS_CLIENT_ID }}
-        SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
+        client_id: ${{ secrets.SOOS_CLIENT_ID }}
+        api_key: ${{ secrets.SOOS_API_KEY }}
         
 ```
 
-The `soos-io/soos-sca-github-actions` Action has properties which are passed to the action using `with`.
+The `soos-io/soos-sca-github-action` Action has properties which are passed to the action using `with`.
 
 | Property                         | Default                    | Description                                                                                                                                                                                                                                   |
 |----------------------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| base_uri                         | "https://api.soos.io/api/" | The API BASE URI provided to you when subscribing to SOOS services.                                                                                                                                                                           |
+| client_id                         | [none] | The Client Id provided to you when subscribing to SOOS services.                                                                                                                                                                           |
+| api_key                         | [none] | The Api Key provided to you when subscribing to SOOS services.                                                                                                                                                                           |
+| api_url                         | "https://api.soos.io/api/" | The API BASE URI provided to you when subscribing to SOOS services.                                                                                                                                                                           |
 | project_name                     | [none]                     | REQUIRED. A custom project name that will present itself as a collection of test results within your soos.io dashboard. For SARIF Report, it should be `{repository_owner}/{repository_name}`                                                 |
 | directories_to_exclude           | ""                         | List (comma separated) of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/ ... Example - Incorrect: ./bin/start/ ... Example - Incorrect: /bin/start/'                               |
 | files_to_exclude                 | ""                         | List (comma separated) of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/manifest.txt ... Example - Incorrect: ./bin/start/manifest.txt ... Example - Incorrect: /bin/start/manifest.txt' |
@@ -82,14 +80,6 @@ The `soos-io/soos-sca-github-actions` Action has properties which are passed to 
 | operating_environment            | [none]                     | System info regarding operating system, etc.                                                                                                                                                                                                  |
 | sarif                            | false                      | Enable Uploading the SARIF Report to GitHub.                                                                                                                                                                                                  |
 | gpat                             | [none]                     | GitHub Personal Access Token. Required to upload SARIF Report                                                                                                                                                                                 |
-
-The SOOS Action has environment variables which are passed to the action using `env`. These environment variables are stored as repo `secrets` and are required for the action to operate.
-
-| Property       | Description                                        |
-|----------------|----------------------------------------------------|
-| SOOS_CLIENT_ID | Provided to you when subscribing to SOOS services. |
-| SOOS_API_KEY   | Provided to you when subscribing to SOOS services. |
-
 
 For example, you can choose to exclude specific directories from scanning:
 
@@ -115,10 +105,8 @@ jobs:
       with:
         project_name: "My Project Name"
         directories_to_exclude: "custom/bin/, custom/etc/bin/"
-    env:
-        # Visit https://soos.io to get the required tokens to leverage SOOS scanning/analysis services
-        SOOS_CLIENT_ID: ${{ secrets.SOOS_CLIENT_ID }}
-        SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
+        client_id: ${{ secrets.SOOS_CLIENT_ID }}
+        api_key: ${{ secrets.SOOS_API_KEY }}
 ```
 
 ### SARIF Report Example
@@ -152,11 +140,9 @@ jobs:
       - name: SOOS SCA Analysis
         uses: soos-io/soos-sca-github-action@<latest_version>
         with:
-          project_name: "<repository_owner>/<repository_name>"
+          project_name: "<repository_owner>/<repository_name>" # Also you can use the var ${{ github.repository }}
           sarif: "true"
           gpat: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
-        env:
-          # Visit https://soos.io to get the required tokens to leverage SOOS scanning/analysis services
-          SOOS_CLIENT_ID: ${{ secrets.SOOS_CLIENT_ID }}
-          SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
+          client_id: ${{ secrets.SOOS_CLIENT_ID }}
+          api_key: ${{ secrets.SOOS_API_KEY }}
 ```
