@@ -34,8 +34,8 @@ You can use the Action as follows:
    uses: soos-io/soos-sca-github-action@vX.Y.Z # Get Latest Version from https://github.com/marketplace/actions/soos-core-sca
    with:
     project_name: "My Project Name"
-    SOOS_CLIENT_ID: ${{ secrets.SOOS_CLIENT_ID }}
-    SOOS_API_KEY: ${{ secrets.SOOS_API_KEY }}
+    client_id: ${{ secrets.SOOS_CLIENT_ID }}
+    api_key: ${{ secrets.SOOS_API_KEY }}
 ```
 Example:
 ```yaml
