@@ -19,7 +19,8 @@ SOOS_OPERATING_ENVIRONMENT=${15}
 
 SOOS_COMMIT_HASH=${GITHUB_SHA}
 SOOS_BRANCH_NAME=${GITHUB_REF}
-SOOS_INTEGRATION_NAME="Github Action"
+SOOS_INTEGRATION_NAME="GitHub"
+SOOS_INTEGRATION_TYPE="Plugin"
 SOOS_GENERATE_SARIF_REPORT=${16}
 SOOS_GITHUB_PAT=${17}
 
@@ -47,6 +48,7 @@ if $SOOS_DEBUG_PRINT_VARIABLES ; then
   echo "SOOS_BUILD_URI: ${SOOS_BUILD_URI}"
   echo "SOOS_OPERATING_ENVIRONMENT: ${SOOS_OPERATING_ENVIRONMENT}"
   echo "SOOS_INTEGRATION_NAME: ${SOOS_INTEGRATION_NAME}"
+  echo "SOOS_INTEGRATION_TYPE: ${SOOS_INTEGRATION_TYPE}"
   echo "SOOS_GENERATE_SARIF_REPORT: ${SOOS_GENERATE_SARIF_REPORT}"
   echo "SOOS_GITHUB_PAT: ${SOOS_GITHUB_PAT}"
 
@@ -73,14 +75,8 @@ mkdir -p ${GITHUB_WORKSPACE}/soos/workspace
 
 source bin/activate
 
-# Get SOOS CLI
-cd ${GITHUB_WORKSPACE}/soos/workspace
-curl -s https://api.github.com/repos/soos-io/soos-ci-analysis-python/releases/latest | grep "browser_download_url" | cut -d '"' -f 4 | xargs -n 1 curl -LO
-sha256sum -c soos.sha256
-sha256sum -c requirements.sha256
-
-# Install SOOS Requirements
-pip3 install -r requirements.txt
+# Install SOOS SCA
+python3 -m pip install soos-sca --trusted-host pypi.python.org
 
 cd ${GITHUB_WORKSPACE}
 
@@ -95,4 +91,4 @@ if [ "${SOOS_GENERATE_SARIF_REPORT}" = 'true' ]
 fi
 
 
-python3 soos/workspace/soos.py -m="${SOOS_MODE}" -of=${SOOS_ON_FAILURE} -dte="${SOOS_DIRECTORIES_TO_EXCLUDE}" -fte="${SOOS_FILES_TO_EXCLUDE}" -wd="${SOOS_WORKING_DIRECTORY}" -armw="${SOOS_ANALYSIS_RESULT_MAX_WAIT}" -arpi="${SOOS_ANALYSIS_RESULT_POLLING_INTERVAL}" -buri="${SOOS_BASE_URI}" -scp="${SOOS_ROOT_CODE_PATH}" -pn="${SOOS_PROJECT_NAME}" -ch="${SOOS_COMMIT_HASH}" -bn="${SOOS_BRANCH_NAME}" -bruri="${SOOS_BRANCH_URI}" -bldver="${SOOS_BUILD_VERSION}" -blduri="${SOOS_BUILD_URI}" -oe="${SOOS_OPERATING_ENVIRONMENT}" -akey="${SOOS_API_KEY}" -cid="${SOOS_CLIENT_ID}" -intn="${SOOS_INTEGRATION_NAME}" ${PARAMS}
+soos-sca -m="${SOOS_MODE}" -of=${SOOS_ON_FAILURE} -dte="${SOOS_DIRECTORIES_TO_EXCLUDE}" -fte="${SOOS_FILES_TO_EXCLUDE}" -wd="${SOOS_WORKING_DIRECTORY}" -armw="${SOOS_ANALYSIS_RESULT_MAX_WAIT}" -arpi="${SOOS_ANALYSIS_RESULT_POLLING_INTERVAL}" -buri="${SOOS_BASE_URI}" -scp="${SOOS_ROOT_CODE_PATH}" -pn="${SOOS_PROJECT_NAME}" -ch="${SOOS_COMMIT_HASH}" -bn="${SOOS_BRANCH_NAME}" -bruri="${SOOS_BRANCH_URI}" -bldver="${SOOS_BUILD_VERSION}" -blduri="${SOOS_BUILD_URI}" -oe="${SOOS_OPERATING_ENVIRONMENT}" -akey="${SOOS_API_KEY}" -cid="${SOOS_CLIENT_ID}" -intn="${SOOS_INTEGRATION_NAME}" -intt="${SOOS_INTEGRATION_TYPE}" ${PARAMS}
