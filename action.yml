@@ -73,6 +73,10 @@ inputs:
     description: 'Github Personal Access Token to upload SARIF Report.'
     required: false
     default: ''
+  package_managers:
+    description: List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)
+    required: 'false'
+    default: ''
 
 runs:
   using: "docker"
@@ -99,3 +103,4 @@ runs:
     - ${{ inputs.operating_environment }}
     - ${{ inputs.sarif }}
     - ${{ inputs.gpat }}
+    - ${{ inputs.package_managers}}
