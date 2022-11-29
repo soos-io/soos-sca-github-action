@@ -7,6 +7,7 @@ COPY check_version.py /check_version.py
 
 # Install Python utilities
 RUN pip install pip pipenv virtualenv -U && \
+    pip install requests && \
     apt-get update && \
     apt-get install -y build-essential curl git && \
     apt-get autoremove -y && \
