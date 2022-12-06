@@ -17,3 +17,4 @@ except Exception as error:
     print('Failed to check for updates. Please check manually.')
 
 print('-' * 106)
+print(current_tag)
