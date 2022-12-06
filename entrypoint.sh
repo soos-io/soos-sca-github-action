@@ -2,9 +2,6 @@
 
 SOOS_APP_VERSION=$(python3 /check_version.py)
 
-# print the version
-echo "SOOS SCA version: ${SOOS_APP_VERSION}"
-
 SOOS_CLIENT_ID=$1
 SOOS_API_KEY=$2
 SOOS_BASE_URI=$3
