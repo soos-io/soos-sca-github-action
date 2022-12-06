@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOOS_APP_VERSION=$(python3 check_version.py)
+SOOS_APP_VERSION=$(python3 /check_version.py)
 
 # print the version
 echo "SOOS SCA version: ${SOOS_APP_VERSION}"
