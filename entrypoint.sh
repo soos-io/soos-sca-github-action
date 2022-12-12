@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# run check_version.py
+python3 /check_version.py
+
 SOOS_CLIENT_ID=$1
 SOOS_API_KEY=$2
 SOOS_BASE_URI=$3
