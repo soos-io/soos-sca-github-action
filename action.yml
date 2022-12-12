@@ -77,6 +77,14 @@ inputs:
     description: List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)
     required: 'false'
     default: ''
+  verbosity:
+    description: Set logging verbosity level value (INFO/DEBUG)
+    required: 'false'
+    default: 'INFO'
+  verbose:
+    description: Enable verbose logging
+    required: 'false'
+    default: 'false'
 
 runs:
   using: "docker"
@@ -104,3 +112,5 @@ runs:
     - ${{ inputs.sarif }}
     - ${{ inputs.gpat }}
     - ${{ inputs.package_managers}}
+    - ${{ inputs.verbosity }}
+    - ${{ inputs.verbose }}
