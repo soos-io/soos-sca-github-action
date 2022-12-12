@@ -79,6 +79,8 @@ The `soos-io/soos-sca-github-action` Action has properties which are passed to t
 | sarif                            | false                      | Enable Uploading the SARIF Report to GitHub.                                                                                                                                                                                                  |
 | gpat                             | [none]                     | GitHub Personal Access Token. Required to upload SARIF Report                                                                                                                                                                                 |
 | package_managers                             | [none]                     | List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)                                                                                                                                                                               |
+| verbosity                             | INFO                     | Set logging verbosity level value (INFO/DEBUG)                                                                                                                                                                    |
+| verbose                             | false                     | Enable verbose logging |
 
 For example, you can choose to exclude specific directories from scanning:
 
