@@ -1,6 +1,8 @@
 #!/bin/bash
 
-SOOS_APP_VERSION=$(python3 /check_version.py)
+python3 /check_version.py
+
+SOOS_APP_VERSION=${GITHUB_ACTION_REF}
 
 SOOS_CLIENT_ID=$1
 SOOS_API_KEY=$2
