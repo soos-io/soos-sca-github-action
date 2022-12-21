@@ -26,9 +26,9 @@ inputs:
     required: false
     default: 'run_and_wait'
   on_failure:
-    description: 'Set the On Failure Scan Strategy: fail_the_build, and continue_on_error'
+    description: 'Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure'
     required: false
-    default: 'fail_the_build'
+    default: 'continue_on_failure'
   directories_to_exclude:
     description: 'Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start'
     required: false
