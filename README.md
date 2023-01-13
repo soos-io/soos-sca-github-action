@@ -1,4 +1,4 @@
-# SOOS Core SCA
+# [SOOS Core SCA](https://soos.io/sca-product)
 
 SOOS is an independent software security company, located in Winooski, VT USA, building security software for your team. [SOOS, Software security, simplified](https://soos.io).
 
