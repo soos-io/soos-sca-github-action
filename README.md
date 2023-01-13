@@ -1,16 +1,5 @@
 # SOOS Core SCA
 
-Scan your software for **vulnerabilities** and **license issues**.  Generate **SBOMs**. 
-
-Use **SOOS Core SCA** to:
-
-1. Find, fix and monitor known **vulnerabilities**
-2. Review open source **license usage** within your project
-3. Track tickets in **Jira** or **GitHub** Issues
-4. Generate an **SBOM** 
-
-## About SOOS
-
 SOOS is an independent software security company, located in Winooski, VT USA, building security software for your team. [SOOS, Software security, simplified](https://soos.io).
 
 Use SOOS to scan your software for [vulnerabilities](https://app.soos.io/research/vulnerabilities) and [open source license](https://app.soos.io/research/licenses) issues with [SOOS Core SCA](https://soos.io/sca-product). [Generate SBOMs](https://kb.soos.io/help/generating-a-software-bill-of-materials-sbom). Govern your open source dependencies. Run the [SOOS DAST vulnerability scanner](https://soos.io/dast-product) against your web apps or APIs.
