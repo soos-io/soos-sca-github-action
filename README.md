@@ -22,6 +22,7 @@ If you maintain an Open Source project, sign up for the Free as in Beer [SOOS Co
 * [PyPI - Python](https://pypi.org/)
 * [Rebar3 - Erlang](https://rebar3.readme.io/docs/getting-started)
 * [Ruby Gems - Ruby](https://rubygems.org/)
+* [Go Modules - Go (GoLang)](https://pkg.go.dev/)
 
 ## How to use it:
 
