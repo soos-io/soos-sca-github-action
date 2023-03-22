@@ -75,15 +75,15 @@ inputs:
     default: ''
   package_managers:
     description: List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)
-    required: 'false'
+    required: false
     default: ''
   verbosity:
     description: Set logging verbosity level value (INFO/DEBUG)
-    required: 'false'
+    required: false
     default: 'INFO'
   verbose:
     description: Enable verbose logging
-    required: 'false'
+    required: false
     default: 'false'
 
 runs:
