@@ -61,27 +61,28 @@ jobs:
 
 The `soos-io/soos-sca-github-action` Action has properties which are passed to the action using `with`.
 
-| Property                         | Default                    | Description                                                                                                                                                                                                                                   |
-|----------------------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| client_id                         | [none] | The Client Id provided to you when subscribing to SOOS services.                                                                                                                                                                           |
-| api_key                         | [none] | The Api Key provided to you when subscribing to SOOS services.                                                                                                                                                                           |
-| api_url                         | "https://api.soos.io/api/" | The API BASE URI provided to you when subscribing to SOOS services.                                                                                                                                                                           |
-| project_name                     | [none]                     | REQUIRED. A custom project name that will present itself as a collection of test results within your soos.io dashboard. For SARIF Report, it should be `{repository_owner}/{repository_name}`                                                 |
-| directories_to_exclude           | ""                         | List (comma separated) of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/ ... Example - Incorrect: ./bin/start/ ... Example - Incorrect: /bin/start/'                               |
-| files_to_exclude                 | ""                         | List (comma separated) of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/manifest.txt ... Example - Incorrect: ./bin/start/manifest.txt ... Example - Incorrect: /bin/start/manifest.txt' |
-| analysis_result_max_wait         | 300                        | Maximum seconds to wait for Analysis Result before exiting with error.                                                                                                                                                                        |
-| analysis_result_polling_interval | 10                         | Polling interval (in seconds) for analysis result completion (success/failure.). Min 10.                                                                                                                                                      |
-| on_failure | continue_on_failure                         | Set the On Failure Scan Strategy: fail_the_build, and                                                                                                                                                        |
-| debug_print_variables            | false                      | Enables printing of input/environment variables within the docker container.                                                                                                                                                                  |
-| branch_uri                       | [none]                     | The URI to the branch from the SCM System                                                                                                                                                                                                     |
-| build_version                    | [none]                     | Version of application build artifacts                                                                                                                                                                                                        |
-| build_uri                        | [none]                     | URI to CI build info                                                                                                                                                                                                                          |
-| operating_environment            | [none]                     | System info regarding operating system, etc.                                                                                                                                                                                                  |
-| sarif                            | false                      | Enable Uploading the SARIF Report to GitHub.                                                                                                                                                                                                  |
-| gpat                             | [none]                     | GitHub Personal Access Token. Required to upload SARIF Report                                                                                                                                                                                 |
-| package_managers                             | [none]                     | List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)                                                                                                                                                                               |
-| verbosity                             | INFO                     | Set logging verbosity level value (INFO/DEBUG)                                                                                                                                                                    |
-| verbose                             | false                     | Enable verbose logging |
+| Property | Description | Default |
+| --- | --- | --- |
+| client_id | SOOS Client Id |
+| api_key | SOOS API Key |
+| api_url | SOOS API URL | https://api.soos.io/api/ |
+| project_name | The project name that will be displayed on the dashboard. By Default is owner/repository_name | ${{ github.repository }} |
+| mode | The scan mode for the analysis: run_and_wait, async_init, and async_result | run_and_wait |
+| on_failure | Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure | continue_on_failure |
+| directories_to_exclude | Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start |  |
+| files_to_exclude | Files to Exclude: Listing of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/requirements.txt ... Example - Incorrect: ./bin/start/requirements.txt ... Example - Incorrect: /bin/start/requirements.txt |  |
+| analysis_result_max_wait | Maximum seconds to wait for Analysis Result. | 300 |
+| analysis_result_polling_interval | Polling interval (in seconds) for analysis result completion (success/failure). Min value 10 seconds. | 10 |
+| debug_print_variables | Enables printing of input/environment variables within the docker container. | false |
+| branch_uri | URI to branch from SCM system. |  |
+| build_version | Version of application build artifacts. |  |
+| build_uri | URI to CI build info. |  |
+| operating_environment | System info regarding operating system, etc. | ${{ runner.os }} |
+| sarif | Generate SARIF Report | false |
+| gpat | Github Personal Access Token to upload SARIF Report. |  |
+| package_managers | List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.) |  |
+| verbosity | Set logging verbosity level value (INFO/DEBUG) | INFO |
+| verbose | Enable verbose logging | false 
 
 For example, you can choose to exclude specific directories from scanning:
 
