@@ -10,6 +10,7 @@ If you maintain an Open Source project, sign up for the Free as in Beer [SOOS Co
 
 ## Supported Languages and Package Managers
 
+* [C++ - Conan](https://conan.io/center/)
 * [Cargo - Rust](https://doc.rust-lang.org/cargo/)
 * [Composer - PHP](https://maven.apache.org/)
 * [Dart PM (Pub Package Manager) - Dart](https://pub.dev/)
