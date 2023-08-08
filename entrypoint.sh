@@ -33,6 +33,7 @@ SOOS_VERBOSE=${20}
 
 SOOS_WORKING_DIRECTORY=${GITHUB_WORKSPACE}
 SOOS_ROOT_CODE_PATH=${GITHUB_WORKSPACE}
+SOOS_CONTRIBUTING_DEVELOPER=${GITHUB_ACTOR}
 
 echo 'Starting entrypoint.sh'
 
@@ -84,7 +85,7 @@ mkdir -p ${GITHUB_WORKSPACE}/soos/workspace
 source bin/activate
 
 # Install SOOS SCA
-python3 -m pip install soos-sca --trusted-host pypi.python.org
+python3 -m pip install soos-sca==1.7.12rc1 --trusted-host pypi.python.org
 
 cd ${GITHUB_WORKSPACE}
 
@@ -102,4 +103,4 @@ if [ "${SOOS_VERBOSE}" = 'true' ]
     PARAMS="--verbose"
 fi
 
-soos-sca -m="${SOOS_MODE}" -of=${SOOS_ON_FAILURE} -dte="${SOOS_DIRECTORIES_TO_EXCLUDE}" -fte="${SOOS_FILES_TO_EXCLUDE}" -wd="${SOOS_WORKING_DIRECTORY}" -armw="${SOOS_ANALYSIS_RESULT_MAX_WAIT}" -arpi="${SOOS_ANALYSIS_RESULT_POLLING_INTERVAL}" -buri="${SOOS_BASE_URI}" -scp="${SOOS_ROOT_CODE_PATH}" -pn="${SOOS_PROJECT_NAME}" -ch="${SOOS_COMMIT_HASH}" -bn="${SOOS_BRANCH_NAME}" -bruri="${SOOS_BRANCH_URI}" -bldver="${SOOS_BUILD_VERSION}" -blduri="${SOOS_BUILD_URI}" -oe="${SOOS_OPERATING_ENVIRONMENT}" -akey="${SOOS_API_KEY}" -cid="${SOOS_CLIENT_ID}" -intn="${SOOS_INTEGRATION_NAME}" -intt="${SOOS_INTEGRATION_TYPE}" -pm="${SOOS_PACKAGE_MANAGERS}" -appver="${SOOS_APP_VERSION}" ${PARAMS}
+soos-sca -m="${SOOS_MODE}" -of=${SOOS_ON_FAILURE} -dte="${SOOS_DIRECTORIES_TO_EXCLUDE}" -fte="${SOOS_FILES_TO_EXCLUDE}" -wd="${SOOS_WORKING_DIRECTORY}" -armw="${SOOS_ANALYSIS_RESULT_MAX_WAIT}" -arpi="${SOOS_ANALYSIS_RESULT_POLLING_INTERVAL}" -buri="${SOOS_BASE_URI}" -scp="${SOOS_ROOT_CODE_PATH}" -pn="${SOOS_PROJECT_NAME}" -ch="${SOOS_COMMIT_HASH}" -bn="${SOOS_BRANCH_NAME}" -bruri="${SOOS_BRANCH_URI}" -bldver="${SOOS_BUILD_VERSION}" -blduri="${SOOS_BUILD_URI}" -oe="${SOOS_OPERATING_ENVIRONMENT}" -akey="${SOOS_API_KEY}" -cid="${SOOS_CLIENT_ID}" -intn="${SOOS_INTEGRATION_NAME}" -intt="${SOOS_INTEGRATION_TYPE}" -pm="${SOOS_PACKAGE_MANAGERS}" -appver="${SOOS_APP_VERSION}" -cdev="${SOOS_CONTRIBUTING_DEVELOPER}" ${PARAMS}
