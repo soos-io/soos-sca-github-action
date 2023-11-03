@@ -76,6 +76,7 @@ The `soos-io/soos-sca-github-action` Action has properties which are passed to t
 | analysis_result_polling_interval | Polling interval (in seconds) for analysis result completion (success/failure). Min value 10 seconds. | 10 |
 | debug_print_variables | Enables printing of input/environment variables within the docker container. | false |
 | branch_uri | URI to branch from SCM system. |  |
+| branch_name                       | GITHUB_REF (branch name from build)                     | Branch Name to create scan under |
 | build_version | Version of application build artifacts. |  |
 | build_uri | URI to CI build info. |  |
 | operating_environment | System info regarding operating system, etc. | ${{ runner.os }} |

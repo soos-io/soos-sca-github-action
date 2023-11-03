@@ -53,6 +53,10 @@ inputs:
     description: 'URI to branch from SCM system.'
     required: false
     default: ''
+  branch_name:
+    description: 'Branch Name to create scan under'
+    required: false
+    default: ''
   build_version:
     description: 'Version of application build artifacts.'
     required: false
@@ -114,3 +118,4 @@ runs:
     - ${{ inputs.package_managers}}
     - ${{ inputs.verbosity }}
     - ${{ inputs.verbose }}
+    - ${{ inputs.branch_name }}
