@@ -88,7 +88,7 @@ mkdir -p ${GITHUB_WORKSPACE}/soos/workspace
 source bin/activate
 
 # Install SOOS SCA
-python3 -m pip install soos-sca==1.7.13rc1 --trusted-host pypi.python.org
+python3 -m pip install soos-sca==1.7.15rc1 --trusted-host pypi.python.org
 
 cd ${GITHUB_WORKSPACE}
 
