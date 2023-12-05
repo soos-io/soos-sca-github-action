@@ -38,53 +38,28 @@ You can use the Action as follows:
     client_id: ${{ secrets.SOOS_CLIENT_ID }}
     api_key: ${{ secrets.SOOS_API_KEY }}
 ```
-Example:
-```yaml
-name: Example workflow using SOOS
-# Events required to engage workflow (add/edit this list as needed)
-on: push
-jobs:
-  synchronous-analysis-with-blocking-result:
-    name: SOOS SCA Scan
-    runs-on: ubuntu-latest
-    steps:
-
-    - uses: actions/checkout@master
-
-    - name: Run SOOS - Scan for vulnerabilities
-      uses: soos-io/soos-sca-github-action@<latest_version>
-      with:
-        project_name: "My Project Name"
-        client_id: ${{ secrets.SOOS_CLIENT_ID }}
-        api_key: ${{ secrets.SOOS_API_KEY }}
-        
-```
 
 The `soos-io/soos-sca-github-action` Action has properties which are passed to the action using `with`.
 
-| Property | Description | Default |
-| --- | --- | --- |
-| client_id | SOOS Client Id |
-| api_key | SOOS API Key |
-| api_url | SOOS API URL | https://api.soos.io/api/ |
-| project_name | The project name that will be displayed on the dashboard. By Default is owner/repository_name | ${{ github.repository }} |
-| mode | The scan mode for the analysis: run_and_wait, async_init, and async_result | run_and_wait |
-| on_failure | Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure | continue_on_failure |
-| directories_to_exclude | Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start |  |
-| files_to_exclude | Files to Exclude: Listing of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/requirements.txt ... Example - Incorrect: ./bin/start/requirements.txt ... Example - Incorrect: /bin/start/requirements.txt |  |
-| analysis_result_max_wait | Maximum seconds to wait for Analysis Result. | 300 |
-| analysis_result_polling_interval | Polling interval (in seconds) for analysis result completion (success/failure). Min value 10 seconds. | 10 |
-| debug_print_variables | Enables printing of input/environment variables within the docker container. | false |
-| branch_uri | URI to branch from SCM system. |  |
-| branch_name                       | GITHUB_REF (branch name from build)                     | Branch Name to create scan under |
-| build_version | Version of application build artifacts. |  |
-| build_uri | URI to CI build info. |  |
-| operating_environment | System info regarding operating system, etc. | ${{ runner.os }} |
-| sarif | Generate SARIF Report | false |
-| gpat | Github Personal Access Token to upload SARIF Report. |  |
-| package_managers | List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.) |  |
-| verbosity | Set logging verbosity level value (INFO/DEBUG) | INFO |
-| verbose | Enable verbose logging | false 
+| Property                | Description | Default |
+|-------------------------|-------------|---------|
+| api_key                 | The Api Key provided to you when subscribing to SOOS services. |  |
+| api_url                 | SOOS API URL | https://api.soos.io/api/ |
+| branch_name             | GITHUB_REF (branch name from build) | Branch Name to create scan under |
+| branch_uri              | URI to branch from SCM system. |  |
+| build_uri               | URI to CI build info. |  |
+| build_version           | Version of application build artifacts. |  |
+| client_id               | The Client Id provided to you when subscribing to SOOS services. |  |
+| directories_to_exclude  | Listing of directories or patterns to exclude from the search for manifest files. eg: **bin/start/**, **/start/** |  |
+| files_to_exclude        | Listing of files or patterns patterns to exclude from the search for manifest files. eg: **/req**.txt/, **/requirements.txt |  |
+| log_level               | Minimum level to show logs: PASS, IGNORE, INFO, WARN or FAIL. | INFO |
+| on_failure              | Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure | continue_on_failure |
+| operating_environment   | System info regarding operating system, etc. | ${{ runner.os }} |
+| output_format           | Output format for vulnerabilities: only the value SARIF is available at the moment |  |
+| package_managers        | List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.) |  |
+| project_name            | The project name that will be displayed on the dashboard. By Default is owner/repository_name | ${{ github.repository }} |
+| verbose                 | Enable verbose logging | false |
+
 
 For example, you can choose to exclude specific directories from scanning:
 
@@ -109,7 +84,7 @@ jobs:
       uses: soos-io/soos-sca-github-action@<latest_version>
       with:
         project_name: "My Project Name"
-        directories_to_exclude: "custom/bin/, custom/etc/bin/"
+        directories_to_exclude: "**bin/start/**, **/start/**"
         client_id: ${{ secrets.SOOS_CLIENT_ID }}
         api_key: ${{ secrets.SOOS_API_KEY }}
 ```
@@ -146,8 +121,7 @@ jobs:
         uses: soos-io/soos-sca-github-action@<latest_version>
         with:
           project_name: "<repository_owner>/<repository_name>" # Also you can use the var ${{ github.repository }}
-          sarif: "true"
-          gpat: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
+          output_format: "sarif"
           client_id: ${{ secrets.SOOS_CLIENT_ID }}
           api_key: ${{ secrets.SOOS_API_KEY }}
 ```
