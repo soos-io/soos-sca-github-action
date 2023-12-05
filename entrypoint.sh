@@ -23,13 +23,12 @@ PARAMS=(
     "--filesToExclude" "${SOOS_FILES_TO_EXCLUDE}"
     "--integrationName" "${SOOS_INTEGRATION_NAME}"
     "--integrationType" "${SOOS_INTEGRATION_TYPE}"
-    "--logLevel" "${SOOS_LOG_LEVEL}"
+    ${SOOS_LOG_LEVEL:+--logLevel ${SOOS_LOG_LEVEL}}
     "--onFailure" "${SOOS_ON_FAILURE}"
     "--operatingEnvironment" "${SOOS_OPERATING_ENVIRONMENT}"
-    "--outputFormat" "${SOOS_OUTPUT_FORMAT}"
-    "--packageManagers" "${SOOS_PACKAGE_MANAGERS}"
+    ${SOOS_OUTPUT_FORMAT:+--outputFormat ${SOOS_OUTPUT_FORMAT}}
+    ${SOOS_PACKAGE_MANAGERS:+--packageManagers ${SOOS_PACKAGE_MANAGERS}}    
     "--projectName" "${SOOS_PROJECT_NAME}"
-    "--scanMode" "${SOOS_SCAN_MODE}"
     "--sourceCodePath" "${GITHUB_WORKSPACE}"
     "--workingDirectory" "${GITHUB_WORKSPACE}"
 )
