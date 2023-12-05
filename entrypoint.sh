@@ -35,5 +35,5 @@ PARAMS=(
 
 [ "$SOOS_VERBOSE" == "true" ] && PARAMS+=("--verbose")
 
-
+set -x 
 soos-sca "${PARAMS[@]}"
