@@ -25,6 +25,9 @@ inputs:
   build_version:
     description: 'Version of application build artifacts.'
     required: false
+  client_id:
+    description: 'SOOS Client Id'
+    required: true
   directories_to_exclude:
     description: 'Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start'
     required: false
