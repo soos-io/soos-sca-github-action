@@ -15,8 +15,8 @@ PARAMS=(
     "--appVersion" "${SOOS_APP_VERSION}"
     "--branchName" "${SOOS_BRANCH_NAME}"
     "--branchURI" "${SOOS_BRANCH_URI}"
-    "--buildURI" "${SOOS_BUILD_URI}"
-    "--buildVersion" "${SOOS_BUILD_VERSION}"
+    ${SOOS_BUILD_URI:+--buildUri ${SOOS_BUILD_URI}}
+    ${SOOS_BUILD_VERSION:+--buildVersion ${SOOS_BUILD_VERSION}}
     "--clientId" "${SOOS_CLIENT_ID}"
     "--commitHash" "${GITHUB_SHA}"
     "--directoriesToExclude" "${SOOS_DIRECTORIES_TO_EXCLUDE}"
