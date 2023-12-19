@@ -19,15 +19,15 @@ PARAMS=(
     ${SOOS_BUILD_VERSION:+--buildVersion ${SOOS_BUILD_VERSION}}
     "--clientId" "${SOOS_CLIENT_ID}"
     "--commitHash" "${GITHUB_SHA}"
-    ${SOOS_DIRECTORIES_TO_EXCLUDE:+--directoriesToExclude ${SOOS_DIRECTORIES_TO_EXCLUDE}}
-    ${SOOS_FILES_TO_EXCLUDE:+--filesToExclude ${SOOS_FILES_TO_EXCLUDE}}
+    ${SOOS_DIRECTORIES_TO_EXCLUDE:+--directoriesToExclude "${SOOS_DIRECTORIES_TO_EXCLUDE}"}
+    ${SOOS_FILES_TO_EXCLUDE:+--filesToExclude "${SOOS_FILES_TO_EXCLUDE}"}
     "--integrationName" "${SOOS_INTEGRATION_NAME}"
     "--integrationType" "${SOOS_INTEGRATION_TYPE}"
     ${SOOS_LOG_LEVEL:+--logLevel ${SOOS_LOG_LEVEL}}
     "--onFailure" "${SOOS_ON_FAILURE}"
     "--operatingEnvironment" "${SOOS_OPERATING_ENVIRONMENT}"
     ${SOOS_OUTPUT_FORMAT:+--outputFormat ${SOOS_OUTPUT_FORMAT}}
-    ${SOOS_PACKAGE_MANAGERS:+--packageManagers ${SOOS_PACKAGE_MANAGERS}}    
+    ${SOOS_PACKAGE_MANAGERS:+--packageManagers "${SOOS_PACKAGE_MANAGERS}"}    
     "--projectName" "${SOOS_PROJECT_NAME}"
     "--sourceCodePath" "${GITHUB_WORKSPACE}"
     "--workingDirectory" "${GITHUB_WORKSPACE}"
@@ -35,4 +35,5 @@ PARAMS=(
 
 [ "$SOOS_VERBOSE" == "true" ] && PARAMS+=("--verbose")
 
+set -x
 soos-sca "${PARAMS[@]}"
