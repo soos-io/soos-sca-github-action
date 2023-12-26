@@ -2,7 +2,7 @@
 
 SOOS is an independent software security company, located in Winooski, VT USA, building security software for your team. [SOOS, Software security, simplified](https://soos.io).
 
-Use SOOS to scan your software for [vulnerabilities](https://app.soos.io/research/vulnerabilities) and [open source license](https://app.soos.io/research/licenses) issues with [SOOS Core SCA](https://soos.io/sca-product). [Generate SBOMs](https://kb.soos.io/help/soos-reports-for-export). Govern your open source dependencies. Run the [SOOS DAST vulnerability scanner](https://soos.io/dast-product) against your web apps or APIs.
+Use SOOS to scan your software for [vulnerabilities](https://app.soos.io/research/vulnerabilities) and [open source license](https://app.soos.io/research/licenses) issues with [SOOS Core SCA](https://soos.io/products/sca). [Generate and ingest SBOMs](https://soos.io/products/sbom-manager). [Export reports](https://kb.soos.io/help/soos-reports-for-export) to industry standards. Govern your open source dependencies. Run the [SOOS DAST vulnerability scanner](https://soos.io/products/dast) against your web apps or APIs. [Scan your Docker containers](https://soos.io/products/containers) for vulnerabilities. Check your source code for issues with [SAST Analysis](https://soos.io/products/sast).
 
 [Demo SOOS](https://app.soos.io/demo) or [Register for a Free Trial](https://app.soos.io/register).
 
@@ -44,7 +44,6 @@ The `soos-io/soos-sca-github-action` Action has properties which are passed to t
 | Property                | Description | Default |
 |-------------------------|-------------|---------|
 | api_key                 | The Api Key provided to you when subscribing to SOOS services. |  |
-| api_url                 | SOOS API URL | https://api.soos.io/api/ |
 | branch_name             | GITHUB_REF (branch name from build) | Branch Name to create scan under |
 | branch_uri              | URI to branch from SCM system. |  |
 | build_uri               | URI to CI build info. |  |
