@@ -5,11 +5,7 @@ description: "Execute SOOS SCA analysis using your remote SOOS configuration"
 branding:
   icon: "alert-triangle"
   color: "yellow"
-
 inputs:
-  client_id:
-    description: 'SOOS Client Id'
-    required: true
   api_key:
     description: 'SOOS API Key'
     required: true
@@ -17,74 +13,50 @@ inputs:
     description: 'SOOS API URL'
     required: false
     default: 'https://api.soos.io/api/'
-  project_name:
-    description: 'The project name that will be displayed on the dashboard. By Default is owner/repository_name'
-    required: true
-    default: ${{ github.repository }}
-  mode:
-    description: 'The scan mode for the analysis: run_and_wait, async_init, and async_result'
+  branch_name:
+    description: 'Branch Name to create scan under'
     required: false
-    default: 'run_and_wait'
+  branch_uri:
+    description: 'URI to branch from SCM system.'
+    required: false
+  build_uri:
+    description: 'URI to CI build info.'
+    required: false
+  build_version:
+    description: 'Version of application build artifacts.'
+    required: false
+  client_id:
+    description: 'SOOS Client Id'
+    required: true
+  directories_to_exclude:
+    description: 'Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start'
+    required: false
+  files_to_exclude:
+    description: 'Files to Exclude: Listing of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/requirements.txt ... Example - Incorrect: ./bin/start/requirements.txt ... Example - Incorrect: /bin/start/requirements.txt'
+    required: false
+  log_level:
+    description: 'Log level to show: PASS, IGNORE, INFO, WARN, FAIL, DEBUG, ERROR.'
+    required: false
+    default: 'INFO'
   on_failure:
     description: 'Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure'
     required: false
     default: 'continue_on_failure'
-  directories_to_exclude:
-    description: 'Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start'
-    required: false
-    default: ''
-  files_to_exclude:
-    description: 'Files to Exclude: Listing of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/requirements.txt ... Example - Incorrect: ./bin/start/requirements.txt ... Example - Incorrect: /bin/start/requirements.txt'
-    required: false
-    default: ''
-  analysis_result_max_wait:
-    description: 'Maximum seconds to wait for Analysis Result.'
-    required: false
-    default: '300'
-  analysis_result_polling_interval:
-    description: 'Polling interval (in seconds) for analysis result completion (success/failure). Min value 10 seconds.'
-    required: false
-    default: '10'
-  debug_print_variables:
-    description: 'Enables printing of input/environment variables within the docker container.'
-    required: false
-    default: 'false'
-  branch_uri:
-    description: 'URI to branch from SCM system.'
-    required: false
-    default: ''
-  branch_name:
-    description: 'Branch Name to create scan under'
-    required: false
-    default: ''
-  build_version:
-    description: 'Version of application build artifacts.'
-    required: false
-    default: ''
-  build_uri:
-    description: 'URI to CI build info.'
-    required: false
-    default: ''
   operating_environment:
     description: 'System info regarding operating system, etc.'
     required: false
     default: ${{ runner.os }}
-  sarif:
-    description: 'Generate SARIF Report'
+  output_format:
+    description: 'Output format for vulnerabilities: only the value SARIF is available at the moment'
     required: false
-    default: 'false'
-  gpat:
-    description: 'Github Personal Access Token to upload SARIF Report.'
-    required: false
-    default: ''
   package_managers:
     description: 'List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)'
     required: false
     default: ''
-  verbosity:
-    description: 'Set logging verbosity level value (INFO/DEBUG)'
-    required: false
-    default: 'INFO'
+  project_name:
+    description: 'The project name that will be displayed on the dashboard. By Default is owner/repository_name'
+    required: true
+    default: ${{ github.repository }}
   verbose:
     description: 'Enable verbose logging'
     required: false
@@ -94,28 +66,19 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
-    SOOS_INTEGRATION_NAME: GITHUB_ACTIONS
-    SOOS_INTEGRATION_VERSION: 'v0.2.0'
-
-  args:
-    - ${{ inputs.client_id }}
-    - ${{ inputs.api_key }}
-    - ${{ inputs.api_url }}
-    - ${{ inputs.project_name }}
-    - ${{ inputs.mode }}
-    - ${{ inputs.on_failure }}
-    - ${{ inputs.directories_to_exclude }}
-    - ${{ inputs.files_to_exclude }}
-    - ${{ inputs.analysis_result_max_wait }}
-    - ${{ inputs.analysis_result_polling_interval }}
-    - ${{ inputs.debug_print_variables }}
-    - ${{ inputs.branch_uri }}
-    - ${{ inputs.build_version }}
-    - ${{ inputs.build_uri }}
-    - ${{ inputs.operating_environment }}
-    - ${{ inputs.sarif }}
-    - ${{ inputs.gpat }}
-    - ${{ inputs.package_managers}}
-    - ${{ inputs.verbosity }}
-    - ${{ inputs.verbose }}
-    - ${{ inputs.branch_name }}
+    SOOS_API_KEY: ${{ inputs.api_key }}
+    SOOS_API_URL: ${{ inputs.api_url }}
+    SOOS_BRANCH_NAME: ${{ inputs.branch_name }}
+    SOOS_BRANCH_URI: ${{ inputs.branch_uri }}
+    SOOS_BUILD_URI: ${{ inputs.build_uri }}
+    SOOS_BUILD_VERSION: ${{ inputs.build_version }}
+    SOOS_CLIENT_ID: ${{ inputs.client_id}}
+    SOOS_DIRECTORIES_TO_EXCLUDE: ${{ inputs.directories_to_exclude }}
+    SOOS_FILES_TO_EXCLUDE: ${{ inputs.files_to_exclude }}
+    SOOS_LOG_LEVEL: ${{ inputs.log_level }}
+    SOOS_ON_FAILURE: ${{ inputs.on_failure }}
+    SOOS_OPERATING_ENVIRONMENT: ${{ inputs.operating_environment }}
+    SOOS_OUTPUT_FORMAT: ${{ inputs.output_format }}
+    SOOS_PACKAGE_MANAGERS: ${{ inputs.package_managers }}
+    SOOS_PROJECT_NAME: ${{ inputs.project_name }}
+    SOOS_VERBOSE: ${{ inputs.verbose }}
