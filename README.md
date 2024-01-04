@@ -32,7 +32,7 @@ You can use the Action as follows:
 - Update the `.github/workflow/main.yml`file to include a step like this:
 ```yaml
  - name: Run SOOS SCA Scan for vulnerabilities
-   uses: soos-io/soos-sca-github-action@vX.Y.Z # Get Latest Version from https://github.com/marketplace/actions/soos-core-sca
+   uses: soos-io/soos-sca-github-action@v2 # Check the latest major version here: https://github.com/marketplace/actions/soos-core-sca
    with:
     project_name: "My Project Name"
     client_id: ${{ secrets.SOOS_CLIENT_ID }}
@@ -80,7 +80,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run SOOS - Scan for vulnerabilities
-      uses: soos-io/soos-sca-github-action@<latest_version>
+      uses: soos-io/soos-sca-github-action@v2
       with:
         project_name: "My Project Name"
         directories_to_exclude: "**bin/start/**, **/start/**"
@@ -117,7 +117,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: SOOS SCA Analysis
-        uses: soos-io/soos-sca-github-action@<latest_version>
+        uses: soos-io/soos-sca-github-action@v2
         with:
           project_name: "<repository_owner>/<repository_name>" # Also you can use the var ${{ github.repository }}
           output_format: "sarif"
