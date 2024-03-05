@@ -41,8 +41,8 @@ You can use the Action as follows:
 
 The `soos-io/soos-sca-github-action` Action has properties which are passed to the action using `with`.
 
-| Property                | Description | Default |
-|-------------------------|-------------|---------|
+| Property                | Description                                                     | Default |
+|-------------------------|-----------------------------------------------------------------|---------|
 | api_key                 | The Api Key provided to you when subscribing to SOOS services. |  |
 | branch_name             | GITHUB_REF (branch name from build) | Branch Name to create scan under |
 | branch_uri              | URI to branch from SCM system. |  |
