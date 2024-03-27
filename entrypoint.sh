@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo '[click here to see the results of the scan](https://soos.io)'
+
 SOOS_APP_VERSION=${GITHUB_ACTION_REF}
 SOOS_INTEGRATION_NAME="GitHub"
 SOOS_INTEGRATION_TYPE="Plugin"
