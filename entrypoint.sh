@@ -1,5 +1,5 @@
 #!/bin/bash
-#echo "[hello]: https://test.com/clientid" >> $GITHUB_STEP_SUMMARY
+echo "[hello]: ${SOOS_CLIENT_ID}"
 
 SOOS_APP_VERSION=${GITHUB_ACTION_REF}
 SOOS_INTEGRATION_NAME="GitHub"
