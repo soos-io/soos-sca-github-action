@@ -1,18 +1,9 @@
-# Container image that runs your code
-FROM python:3
+FROM node:18-slim as BASE
 
-# Copies your code file from your action repository to the filesystem path `/` of the container
+RUN npm i -g @soos-io/soos-sca
+
 COPY entrypoint.sh /entrypoint.sh
-COPY check_version.py /check_version.py
 
-# Install Python utilities
-RUN pip install pip pipenv virtualenv -U && \
-    pip install requests && \
-    apt-get update && \
-    apt-get install -y build-essential curl git && \
-    apt-get autoremove -y && \
-    apt-get clean
-
-RUN chmod 777 /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
