@@ -14,6 +14,7 @@ If you maintain an Open Source project, sign up for the Free as in Beer [SOOS Co
 * [Cargo - Rust](https://doc.rust-lang.org/cargo/)
 * [Composer - PHP](https://maven.apache.org/)
 * [Dart PM (Pub Package Manager) - Dart](https://pub.dev/)
+* [Go Modules - Go (GoLang)](https://pkg.go.dev/)
 * [Gradle - Java & Kotlin](https://gradle.org/)
 * [Homebrew - (various languages)](https://brew.sh/)
 * [Maven - Java](https://maven.apache.org/)
@@ -23,7 +24,7 @@ If you maintain an Open Source project, sign up for the Free as in Beer [SOOS Co
 * [PyPI - Python](https://pypi.org/)
 * [Rebar3 - Erlang](https://rebar3.readme.io/docs/getting-started)
 * [Ruby Gems - Ruby](https://rubygems.org/)
-* [Go Modules - Go (GoLang)](https://pkg.go.dev/)
+* And more!
 
 ## How to use it:
 

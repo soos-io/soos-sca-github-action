@@ -10,18 +10,21 @@ inputs:
     description: 'SOOS API Key'
     required: true
   api_url:
-    description: 'SOOS API URL'
+    description: 'SOOS API URL - Internal Use Only'
     required: false
     default: 'https://api.soos.io/api/'
-  branch_name:
-    description: 'Branch Name to create scan under'
-    required: false
   branch_uri:
-    description: 'URI to branch from SCM system.'
+    description: 'Branch URI.'
     required: false
+    default: '${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }}'
+  branch_name:
+    description: 'Branch Name'
+    required: false
+    default: '${{ github.ref_name }}'
   build_uri:
-    description: 'URI to CI build info.'
+    description: 'Build URI.'
     required: false
+    default: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
   build_version:
     description: 'Version of application build artifacts.'
     required: false
@@ -35,7 +38,7 @@ inputs:
     description: 'Files to Exclude: Listing of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/requirements.txt ... Example - Incorrect: ./bin/start/requirements.txt ... Example - Incorrect: /bin/start/requirements.txt'
     required: false
   log_level:
-    description: 'Log level to show: PASS, IGNORE, INFO, WARN, FAIL, DEBUG, ERROR.'
+    description: 'Log level to show: DEBUG, INFO, WARN, ERROR, CRITICAL.'
     required: false
     default: 'INFO'
   on_failure:
@@ -57,28 +60,91 @@ inputs:
     description: 'The project name that will be displayed on the dashboard. By Default is owner/repository_name'
     required: true
     default: ${{ github.repository }}
+  sca_version:
+    description: 'The SOOS SCA version to use - Internal Use Only'
+    required: false
+    default: 'latest'
+  source_code_path: 
+    description: 'The path to manifests, defaults to the current GitHub workspace'
+    required: false
+    default: '${{ github.workspace }}'
   verbose:
     description: 'Enable verbose logging'
     required: false
     default: 'false'
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  env:
-    SOOS_API_KEY: ${{ inputs.api_key }}
-    SOOS_API_URL: ${{ inputs.api_url }}
-    SOOS_BRANCH_NAME: ${{ inputs.branch_name }}
-    SOOS_BRANCH_URI: ${{ inputs.branch_uri }}
-    SOOS_BUILD_URI: ${{ inputs.build_uri }}
-    SOOS_BUILD_VERSION: ${{ inputs.build_version }}
-    SOOS_CLIENT_ID: ${{ inputs.client_id}}
-    SOOS_DIRECTORIES_TO_EXCLUDE: ${{ inputs.directories_to_exclude }}
-    SOOS_FILES_TO_EXCLUDE: ${{ inputs.files_to_exclude }}
-    SOOS_LOG_LEVEL: ${{ inputs.log_level }}
-    SOOS_ON_FAILURE: ${{ inputs.on_failure }}
-    SOOS_OPERATING_ENVIRONMENT: ${{ inputs.operating_environment }}
-    SOOS_OUTPUT_FORMAT: ${{ inputs.output_format }}
-    SOOS_PACKAGE_MANAGERS: ${{ inputs.package_managers }}
-    SOOS_PROJECT_NAME: ${{ inputs.project_name }}
-    SOOS_VERBOSE: ${{ inputs.verbose }}
+  using: "composite"
+  steps:
+    - name: Check version
+      shell: bash
+      env:
+        SOOS_ACTION_REF: ${{ github.action_ref }}
+      run: |
+        set +x  # Turn off command echoing
+        printf '%.0s-' {1..80}
+        printf '\n'
+        response=$(curl -s https://api.github.com/repos/soos-io/soos-sca-github-action/releases/latest)
+        if [ $? -eq 0 ]; then
+          latest_tag=$(echo "$response" | grep -oP '"tag_name": "\K(.*)(?=")')
+          current_tag=$(echo "$SOOS_ACTION_REF" | awk -F'/' '{print $NF}')
+          latest_tag_major=$(echo "$latest_tag" | awk -F'.' '{print $1}')
+          
+          echo "Your current version is: $current_tag, The latest version is: $latest_tag_major"
+          
+          if [[ "$current_tag" != "$latest_tag_major"* ]]; then
+            echo "This action is outdated or using a commit reference. Please update to use the latest major version tag: $latest_tag_major"
+          elif [[ "$current_tag" == "$latest_tag" ]]; then
+            echo "It is recommended to use the major version tag, $latest_tag_major when referencing this action."
+          elif [[ "$current_tag" != "$latest_tag_major" ]]; then
+            echo "This action is out of date. It is recommended to use the major version tag, $latest_tag_major."
+          fi
+        else 
+          echo "Can't check version."
+        fi
+        printf '%.0s-' {1..80}
+        printf '\n'
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Set Arguments
+      shell: bash
+      run: |
+        set +x  # Turn off command echoing
+        args="--integrationName=Github --integrationType=Plugin "
+
+        [ -n "${{ inputs.api_key }}" ] && args+="--apiKey=${{ inputs.api_key }} "
+        [ -n "${{ inputs.api_url }}" ] && args+="--apiURL=${{ inputs.api_url }} "
+        [ -n "${{ inputs.branch_name }}" ] && args+="--branchName=${{ inputs.branch_name }} "
+        [ -n "${{ inputs.branch_uri }}" ] && args+="--branchURI=${{ inputs.branch_uri }} "
+        [ -n "${{ inputs.build_uri }}" ] && args+="--buildURI=${{ inputs.build_uri }} "
+        [ -n "${{ inputs.build_version }}" ] && args+="--buildVersion=${{ inputs.build_version }} "
+        [ -n "${{ inputs.client_id }}" ] && args+="--clientId=${{ inputs.client_id }} "
+        [ -n "${{ inputs.directories_to_exclude }}" ] && args+="--directoriesToExclude=${{ inputs.directories_to_exclude }} "
+        [ -n "${{ inputs.files_to_exclude }}" ] && args+="--filesToExclude=${{ inputs.files_to_exclude }} "
+        [ -n "${{ inputs.log_level }}" ] && args+="--logLevel=${{ inputs.log_level }} "
+        [ -n "${{ inputs.on_failure }}" ] && args+="--onFailure=${{ inputs.on_failure }} "
+        [ -n "${{ inputs.operating_environment }}" ] && args+="--operatingEnvironment=${{ inputs.operating_environment }} "
+        [ -n "${{ inputs.output_format }}" ] && args+="--outputFormat=${{ inputs.output_format }} "
+        [ -n "${{ inputs.package_managers }}" ] && args+="--packageManagers=${{ inputs.package_managers }} "
+        [ -n "${{ inputs.project_name }}" ] && args+="--projectName=\"${{ inputs.project_name }}\" "
+        [ -n "${{ inputs.source_code_path }}" ] && args+="--sourceCodePath=${{ inputs.source_code_path }} "        
+        [[ "${{ inputs.verbose }}" == "true" ]] && args+="--verbose "
+
+        [ -n "${{ inputs.target_url }}" ] && args+="${{ inputs.target_url }}"
+
+        echo "Arguments: $args"
+
+        echo "args=$args" >> $GITHUB_ENV
+
+    - name: Run SOOS SCA
+      shell: bash
+      run: |
+        if [ -d "./soos" ]; then
+          rm -rf "./soos"
+        fi
+        npm install --prefix ./soos @soos-io/soos-sca@${{ inputs.sca_version }}
+        SCRIPT_VERSION=$(npm list @soos-io/soos-sca --depth=0 | grep @soos-io/soos-sca | awk -F@ '{print $2}')
+        eval "node ./soos/node_modules/@soos-io/soos-sca/bin/index.js --scriptVersion=$SCRIPT_VERSION $args"
