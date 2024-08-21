@@ -145,5 +145,7 @@ runs:
         set -x  # Turn on command echoing
         [ -d "./soos" ] && rm -rf "./soos"
         npm install --prefix ./soos @soos-io/soos-sca@${{ inputs.sca_version }}
+        cd ./soos
         SCRIPT_VERSION=$(npm list @soos-io/soos-sca --depth=0 | grep @soos-io/soos-sca | awk -F@ '{print $2}')
+        cd ..
         eval "node ./soos/node_modules/@soos-io/soos-sca/bin/index.js --scriptVersion=$SCRIPT_VERSION $args"
