@@ -45,16 +45,12 @@ The `soos-io/soos-sca-github-action` Action has properties which are passed to t
 | Property                | Description                                                     | Default |
 |-------------------------|-----------------------------------------------------------------|---------|
 | api_key                 | The Api Key provided to you when subscribing to SOOS services. |  |
-| branch_name             | GITHUB_REF (branch name from build) | Branch Name to create scan under |
-| branch_uri              | URI to branch from SCM system. |  |
-| build_uri               | URI to CI build info. |  |
 | build_version           | Version of application build artifacts. |  |
 | client_id               | The Client Id provided to you when subscribing to SOOS services. |  |
 | directories_to_exclude  | Listing of directories or patterns to exclude from the search for manifest files. eg: **bin/start/**, **/start/** |  |
 | files_to_exclude        | Listing of files or patterns patterns to exclude from the search for manifest files. eg: **/req**.txt/, **/requirements.txt |  |
 | log_level               | Minimum level to show logs: PASS, IGNORE, INFO, WARN or FAIL. | INFO |
 | on_failure              | Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure | continue_on_failure |
-| operating_environment   | System info regarding operating system, etc. | ${{ runner.os }} |
 | output_format           | Output format for vulnerabilities: only the value SARIF is available at the moment |  |
 | package_managers        | List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.) |  |
 | project_name            | The project name that will be displayed on the dashboard. By Default is owner/repository_name | ${{ github.repository }} |

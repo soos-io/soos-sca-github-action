@@ -14,22 +14,22 @@ inputs:
     required: false
     default: 'https://api.soos.io/api/'
   branch_uri:
-    description: 'Branch URI.'
+    description: 'Branch URI - Internal Use Only'
     required: false
     default: '${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }}'
   branch_name:
-    description: 'Branch Name'
+    description: 'Branch Name - Internal Use Only'
     required: false
     default: '${{ github.ref_name }}'
   build_uri:
-    description: 'Build URI.'
+    description: 'Build URI - Internal Use Only'
     required: false
     default: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
   build_version:
     description: 'Version of application build artifacts.'
     required: false
   client_id:
-    description: 'SOOS Client Id'
+    description: 'SOOS Client ID'
     required: true
   directories_to_exclude:
     description: 'Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start'
@@ -46,7 +46,7 @@ inputs:
     required: false
     default: 'continue_on_failure'
   operating_environment:
-    description: 'System info regarding operating system, etc.'
+    description: 'System Info - Internal Use Only'
     required: false
     default: ${{ runner.os }}
   output_format:
