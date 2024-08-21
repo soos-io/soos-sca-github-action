@@ -64,8 +64,8 @@ inputs:
     description: 'The SOOS SCA version to use - Internal Use Only'
     required: false
     default: 'latest'
-  source_code_path: 
-    description: 'The path to manifests, defaults to the current GitHub workspace'
+  working_directory: 
+    description: 'Working directory, defaults to the current GitHub workspace'
     required: false
     default: '${{ github.workspace }}'
   verbose:
@@ -130,7 +130,7 @@ runs:
         [ -n "${{ inputs.output_format }}" ] && args+="--outputFormat=${{ inputs.output_format }} "
         [ -n "${{ inputs.package_managers }}" ] && args+="--packageManagers=${{ inputs.package_managers }} "
         [ -n "${{ inputs.project_name }}" ] && args+="--projectName=\"${{ inputs.project_name }}\" "
-        [ -n "${{ inputs.source_code_path }}" ] && args+="--sourceCodePath=${{ inputs.source_code_path }} "        
+        [ -n "${{ inputs.working_directory }}" ] && args+="--workingDirectory=${{ inputs.working_directory }} "        
         [[ "${{ inputs.verbose }}" == "true" ]] && args+="--verbose "
 
         [ -n "${{ inputs.target_url }}" ] && args+="${{ inputs.target_url }}"
