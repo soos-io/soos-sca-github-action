@@ -142,7 +142,6 @@ runs:
     - name: Install and Run SOOS SCA
       shell: bash
       run: |
-        set -x  # Turn on command echoing
         [ -d "./soos" ] && rm -rf "./soos"
         npm install --prefix ./soos @soos-io/soos-sca@${{ inputs.sca_version }}
         cd ./soos
