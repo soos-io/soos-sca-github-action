@@ -68,6 +68,9 @@ inputs:
     description: 'Working directory, defaults to the current GitHub workspace'
     required: false
     default: '${{ github.workspace }}'
+  verbose:
+    description: 'DEPRECATED - parameter has no effect. Set log_level to DEBUG for the same effect.'
+    required: false
 
 runs:
   using: "composite"
