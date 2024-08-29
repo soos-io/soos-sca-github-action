@@ -69,9 +69,8 @@ inputs:
     required: false
     default: '${{ github.workspace }}'
   verbose:
-    description: 'Enable verbose logging'
+    description: 'DEPRECATED - parameter has no effect. Set log_level to DEBUG for the same effect.'
     required: false
-    default: 'false'
 
 runs:
   using: "composite"
@@ -107,7 +106,7 @@ runs:
 
     - uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 20
 
     - name: Set Arguments
       shell: bash
@@ -131,7 +130,6 @@ runs:
         [ -n "${{ inputs.package_managers }}" ] && args+="--packageManagers=${{ inputs.package_managers }} "
         [ -n "${{ inputs.project_name }}" ] && args+="--projectName=\"${{ inputs.project_name }}\" "
         [ -n "${{ inputs.working_directory }}" ] && args+="--workingDirectory=${{ inputs.working_directory }} "        
-        [[ "${{ inputs.verbose }}" == "true" ]] && args+="--verbose "
 
         [ -n "${{ inputs.target_url }}" ] && args+="${{ inputs.target_url }}"
 
