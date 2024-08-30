@@ -14,17 +14,13 @@ inputs:
     required: false
     default: 'https://api.soos.io/api/'
   branch_uri:
-    description: 'Branch URI - Internal Use Only'
+    description: 'Branch URI'
     required: false
-    default: '${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref }}'
+    default: '${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }}'
   branch_name:
-    description: 'Branch Name - Internal Use Only'
+    description: 'Branch Name'
     required: false
-    default: '${{ github.ref }}'
-  build_uri:
-    description: 'Build URI - Internal Use Only'
-    required: false
-    default: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+    default: '${{ github.ref_name }}'
   build_version:
     description: 'Version of application build artifacts.'
     required: false
@@ -69,7 +65,7 @@ inputs:
     required: false
     default: '${{ github.workspace }}'
   verbose:
-    description: 'Enable verbose logging'
+    description: 'DEPRECATED - parameter has no effect. Set log_level to DEBUG for the same effect.'
     required: false
     default: 'false'
 
@@ -107,7 +103,7 @@ runs:
 
     - uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 20
 
     - name: Set Arguments
       shell: bash
@@ -131,7 +127,6 @@ runs:
         [ -n "${{ inputs.package_managers }}" ] && args+="--packageManagers=${{ inputs.package_managers }} "
         [ -n "${{ inputs.project_name }}" ] && args+="--projectName=\"${{ inputs.project_name }}\" "
         [ -n "${{ inputs.working_directory }}" ] && args+="--workingDirectory=${{ inputs.working_directory }} "        
-        [[ "${{ inputs.verbose }}" == "true" ]] && args+="--verbose "
 
         [ -n "${{ inputs.target_url }}" ] && args+="${{ inputs.target_url }}"
 
