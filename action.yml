@@ -21,6 +21,10 @@ inputs:
     description: 'Branch Name'
     required: false
     default: '${{ github.head_ref || github.ref_name }}'
+  build_uri:
+    description: 'Build URI'
+    required: false
+    default: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
   build_version:
     description: 'Version of application build artifacts.'
     required: false
