@@ -105,6 +105,13 @@ runs:
         printf '%.0s-' {1..80}
         printf '\n'
 
+    - name: Check Deprecated Arguments
+      shell: bash
+      run: |
+        set +x  # Turn off command echoing
+        [ "${{ inputs.verbose }}" == "true" ] && echo "Warning: verbose is deprecated. Set log_level to DEBUG for the same effect."
+        printf '\n'
+
     - uses: actions/setup-node@v4
       with:
         node-version: 20
