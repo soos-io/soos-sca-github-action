@@ -109,8 +109,7 @@ runs:
       shell: bash
       run: |
         set +x  # Turn off command echoing
-        if [ "${{ inputs.verbose }}" == "true" ]; then
-            echo "Warning: verbose is deprecated. Set log_level to DEBUG for the same effect."
+        [ "${{ inputs.verbose }}" == "true" ] && echo "Warning: verbose is deprecated. Set log_level to DEBUG for the same effect."
 
     - uses: actions/setup-node@v4
       with:
