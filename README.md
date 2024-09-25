@@ -9,22 +9,7 @@ Use SOOS to scan your software for [vulnerabilities](https://app.soos.io/researc
 If you maintain an Open Source project, sign up for the Free as in Beer [SOOS Community Edition](https://soos.io/products/community-edition).
 
 ## Supported Languages and Package Managers
-
-* [C++ - Conan](https://conan.io/center/)
-* [Cargo - Rust](https://doc.rust-lang.org/cargo/)
-* [Composer - PHP](https://maven.apache.org/)
-* [Dart PM (Pub Package Manager) - Dart](https://pub.dev/)
-* [Go Modules - Go (GoLang)](https://pkg.go.dev/)
-* [Gradle - Java & Kotlin](https://gradle.org/)
-* [Homebrew - (various languages)](https://brew.sh/)
-* [Maven - Java](https://maven.apache.org/)
-* [Mix - Elixir](https://hexdocs.pm/mix/Mix.html)
-* [NuGet - .NET](https://www.nuget.org/)
-* [NPM (Node Package Manager) - Node](https://www.npmjs.com/)
-* [PyPI - Python](https://pypi.org/)
-* [Rebar3 - Erlang](https://rebar3.readme.io/docs/getting-started)
-* [Ruby Gems - Ruby](https://rubygems.org/)
-* And more!
+Our full list of supported manifest formats can be found [here](https://kb.soos.io/help/soos-languages-supported).
 
 ## How to use it:
 
@@ -52,7 +37,7 @@ The `soos-io/soos-sca-github-action` Action has properties which are passed to t
 | log_level               | Minimum level to show logs: PASS, IGNORE, INFO, WARN or FAIL. | INFO |
 | on_failure              | Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure | continue_on_failure |
 | output_format           | Output format for vulnerabilities: only the value SARIF is available at the moment |  |
-| package_managers        | List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.) |  |
+| package_managers        | A list of package managers, delimited by comma, to include when searching for manifest files. |  |
 | project_name            | The project name that will be displayed on the dashboard. By Default is owner/repository_name | ${{ github.repository }} |
 | verbose                 | Enable verbose logging | false |
 
