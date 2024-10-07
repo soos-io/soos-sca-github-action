@@ -68,10 +68,6 @@ inputs:
     description: 'Working directory, defaults to the current GitHub workspace'
     required: false
     default: '${{ github.workspace }}'
-  verbose:
-    description: 'DEPRECATED - parameter has no effect. Set log_level to DEBUG for the same effect.'
-    required: false
-    default: 'false'
 
 runs:
   using: "composite"
@@ -103,13 +99,6 @@ runs:
           echo "Can't check version."
         fi
         printf '%.0s-' {1..80}
-        printf '\n'
-
-    - name: Check Deprecated Arguments
-      shell: bash
-      run: |
-        set +x  # Turn off command echoing
-        [ "${{ inputs.verbose }}" == "true" ] && echo "Warning: verbose is deprecated. Set log_level to DEBUG for the same effect."
         printf '\n'
 
     - uses: actions/setup-node@v4

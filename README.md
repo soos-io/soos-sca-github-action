@@ -39,8 +39,6 @@ The `soos-io/soos-sca-github-action` Action has properties which are passed to t
 | output_format           | Output format for vulnerabilities: only the value SARIF is available at the moment |  |
 | package_managers        | A list of package managers, delimited by comma, to include when searching for manifest files. |  |
 | project_name            | The project name that will be displayed on the dashboard. By Default is owner/repository_name | ${{ github.repository }} |
-| verbose                 | Enable verbose logging | false |
-
 
 For example, you can choose to exclude specific directories from scanning:
 
