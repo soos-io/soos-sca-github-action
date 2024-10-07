@@ -107,9 +107,12 @@ runs:
 
     - name: Set Arguments
       shell: bash
+      env:
+        SOOS_ACTION_REF: ${{ github.action_ref }}
       run: |
         set +x  # Turn off command echoing
-        args="--integrationName=Github --integrationType=Plugin "
+        current_tag=$(echo "$SOOS_ACTION_REF" | awk -F'/' '{print $NF}')
+        args="--integrationName=Github --integrationType=Plugin --appVersion=\"$current_tag\" "
 
         [ -n "${{ inputs.api_key }}" ] && args+="--apiKey=${{ inputs.api_key }} "
         [ -n "${{ inputs.api_url }}" ] && args+="--apiURL=${{ inputs.api_url }} "
