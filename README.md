@@ -33,10 +33,11 @@ The `soos-io/soos-sca-github-action` Action has properties which are passed to t
 | build_version           | Version of application build artifacts. |  |
 | client_id               | The Client Id provided to you when subscribing to SOOS services. |  |
 | directories_to_exclude  | Listing of directories or patterns to exclude from the search for manifest files. eg: **bin/start/**, **/start/** |  |
+| export_format           | Write the scan result to this file format. Options: CsafVex, CycloneDx, Sarif, Spdx, SoosIssues, SoosLicenses, SoosPackages, SoosVulnerabilities |   |
+| export_file_type        | Write the scan result to this file type (when used with exportFormat). Options: Csv, Html, Json, Text, Xml                                       |   |
 | files_to_exclude        | Listing of files or patterns patterns to exclude from the search for manifest files. eg: **/req**.txt/, **/requirements.txt |  |
 | log_level               | Minimum level to show logs: PASS, IGNORE, INFO, WARN or FAIL. | INFO |
 | on_failure              | Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure | continue_on_failure |
-| output_format           | Output format for vulnerabilities: only the value SARIF is available at the moment |  |
 | package_managers        | A list of package managers, delimited by comma, to include when searching for manifest files. |  |
 | project_name            | The project name that will be displayed on the dashboard. By Default is owner/repository_name | ${{ github.repository }} |
 
