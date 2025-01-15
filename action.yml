@@ -56,7 +56,7 @@ inputs:
     required: false
     default: ${{ runner.os }}
   output_format:
-    description: 'Output format for vulnerabilities: only the value SARIF is available at the moment'
+    description: "DEPRECATED - parameter has no effect. Use export_format and export_file_type."
     required: false
   package_managers:
     description: 'List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)'
