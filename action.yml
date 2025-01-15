@@ -34,6 +34,12 @@ inputs:
   directories_to_exclude:
     description: 'Directories to Exclude: Listing of directories (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/  Example - Incorrect: ./bin/start/ Example - Incorrect: /bin/start'
     required: false
+  export_format:
+    description: "Export format."
+    required: false
+  export_file_type:
+    description: "Export file type."
+    required: false
   files_to_exclude:
     description: 'Files to Exclude: Listing of files (relative to ./) to exclude from the search for manifest files. Example - Correct: bin/start/requirements.txt ... Example - Incorrect: ./bin/start/requirements.txt ... Example - Incorrect: /bin/start/requirements.txt'
     required: false
@@ -50,7 +56,7 @@ inputs:
     required: false
     default: ${{ runner.os }}
   output_format:
-    description: 'Output format for vulnerabilities: only the value SARIF is available at the moment'
+    description: "DEPRECATED - parameter has no effect. Use export_format and export_file_type."
     required: false
   package_managers:
     description: 'List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)'
@@ -122,6 +128,8 @@ runs:
         [ -n "${{ inputs.build_version }}" ] && args+="--buildVersion=${{ inputs.build_version }} "
         [ -n "${{ inputs.client_id }}" ] && args+="--clientId=${{ inputs.client_id }} "
         [ -n "${{ inputs.directories_to_exclude }}" ] && args+="--directoriesToExclude=\"${{ inputs.directories_to_exclude }}\" "
+        [ -n "${{ inputs.export_format }}" ] && args+="--exportFormat=\"${{ inputs.export_format }}\" "
+        [ -n "${{ inputs.export_file_type }}" ] && args+="--exportFileType=\"${{ inputs.export_file_type }}\" "
         [ -n "${{ inputs.files_to_exclude }}" ] && args+="--filesToExclude=\"${{ inputs.files_to_exclude }}\" "
         [ -n "${{ inputs.log_level }}" ] && args+="--logLevel=${{ inputs.log_level }} "
         [ -n "${{ inputs.on_failure }}" ] && args+="--onFailure=${{ inputs.on_failure }} "
