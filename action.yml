@@ -55,8 +55,8 @@ inputs:
     description: 'System Info - Internal Use Only'
     required: false
     default: ${{ runner.os }}
-  output_format:
-    description: "DEPRECATED - parameter has no effect. Use export_format and export_file_type."
+  output_directory:
+    description: 'Export file destination'
     required: false
   package_managers:
     description: 'List (comma separated) of Package Managers to filter manifest search. (Dart, Erlang, Homebrew, PHP, Java, Nuget, NPM, Python, Ruby, Rust.)'
@@ -134,9 +134,9 @@ runs:
         [ -n "${{ inputs.log_level }}" ] && args+="--logLevel=${{ inputs.log_level }} "
         [ -n "${{ inputs.on_failure }}" ] && args+="--onFailure=${{ inputs.on_failure }} "
         [ -n "${{ inputs.operating_environment }}" ] && args+="--operatingEnvironment=${{ inputs.operating_environment }} "
-        [ -n "${{ inputs.output_format }}" ] && args+="--outputFormat=${{ inputs.output_format }} "
         [ -n "${{ inputs.package_managers }}" ] && args+="--packageManagers=${{ inputs.package_managers }} "
         [ -n "${{ inputs.project_name }}" ] && args+="--projectName=\"${{ inputs.project_name }}\" "
+        [ -n "${{ inputs.output_directory }}" ] && args+="--outputDirectory=${{ inputs.output_directory }} "
         [ -n "${{ inputs.working_directory }}" ] && args+="--workingDirectory=${{ inputs.working_directory }} "        
 
         [ -n "${{ inputs.target_url }}" ] && args+="${{ inputs.target_url }}"

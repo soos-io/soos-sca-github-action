@@ -38,6 +38,7 @@ The `soos-io/soos-sca-github-action` Action has properties which are passed to t
 | files_to_exclude        | Listing of files or patterns patterns to exclude from the search for manifest files. eg: **/req**.txt/, **/requirements.txt |  |
 | log_level               | Minimum level to show logs: PASS, IGNORE, INFO, WARN or FAIL. | INFO |
 | on_failure              | Set the On Failure Scan Strategy: fail_the_build, and continue_on_failure | continue_on_failure |
+| output_directory        | Export file destination                                                                                                      |   |
 | package_managers        | A list of package managers, delimited by comma, to include when searching for manifest files. |  |
 | project_name            | The project name that will be displayed on the dashboard. By Default is owner/repository_name | ${{ github.repository }} |
 
@@ -101,7 +102,8 @@ jobs:
         uses: soos-io/soos-sca-github-action@v2
         with:
           project_name: "<repository_owner>/<repository_name>" # Also you can use the var ${{ github.repository }}
-          output_format: "sarif"
+          export_format: "Sarif"
+          export_file_type: "Json"
           client_id: ${{ secrets.SOOS_CLIENT_ID }}
           api_key: ${{ secrets.SOOS_API_KEY }}
 ```
