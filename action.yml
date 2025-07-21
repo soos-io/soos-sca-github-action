@@ -88,7 +88,7 @@ runs:
         printf '\n'
         response="$(curl -s https://api.github.com/repos/soos-io/soos-sca-github-action/releases/latest 2>/dev/null || echo '')"
         if [ -n "$response" ]; then
-          latest_tag=$(echo "$response" | grep -oP '"tag_name": "\K(.*)(?=")')
+          latest_tag=$(echo "$response" | grep -oP '"tag_name": "\K(.*)(?=")' || echo "")
           if [ -n "$latest_tag" ]; then
             current_tag=$(echo "$SOOS_ACTION_REF" | awk -F'/' '{print $NF}')
             latest_tag_major=$(echo "$latest_tag" | awk -F'.' '{print $1}')         
