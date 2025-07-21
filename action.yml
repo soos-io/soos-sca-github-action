@@ -86,7 +86,7 @@ runs:
         set +x  # Turn off command echoing
         printf '%.0s-' {1..80}
         printf '\n'        
-        response=$(curl -s https://api.github.com/repos/soos-io/soos-sast-github-action/releases/latest || true)        
+        response=$(curl -s https://api.github.com/repos/soos-io/soos-sca-github-action/releases/latest || true)        
         if [ -n "$response" ]; then
           latest_tag=$(echo "$response" | grep -oP '"tag_name": "\K(.*)(?=")')          
           if [ -n "$latest_tag" ]; then
